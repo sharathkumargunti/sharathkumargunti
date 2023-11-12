@@ -7,35 +7,44 @@
     <!-- Include Font Awesome CSS for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body {
-            color: #333; /* Text color */
+        /* Your existing styles */
+
+        /* Add new styles for the modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
         }
 
-        a {
-            color: #007BFF; /* Link color */
-        }
-
-        header {
-            background-color: #f8f9fa; /* Header background color */
-            padding: 10px;
-        }
-
-        section {
-            margin: 20px;
-        }
-
-        footer {
-            background-color: #343a40; /* Footer background color */
-            color: #ffffff; /* Footer text color */
-            padding: 10px;
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
             text-align: center;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
         }
     </style>
     <title>Sharath Kumar Gunti</title>
 </head>
 <body>
     <header>
-        <h1>Hey 👋, I am Sharath Kumar Gunti</h1>
+        <h1>Hey👋,This is Sharath Kumar Gunti</h1>
+        <!-- Add the menu button -->
+        <div id="menu-btn" onclick="openModal()">
+            <i class="fas fa-bars"></i> Menu
+        </div>
     </header>
     
     <section>
@@ -53,7 +62,7 @@
     <section>
         <h2>About Me</h2>
         <p>
-            Hi there! I'm Sharath Kumar Gunti, a passionate Student . I love tech and gadgets. Optimistic about future and AI. 
+            Hi there! I'm Sharath Kumar Gunti, a passionate Student. I love testing new teach and gadgets. Optimistic about the future of AI. 
             Explore my website to learn more about my projects and journey.
         </p>
     </section>
@@ -61,5 +70,33 @@
     <footer>
         <p>&copy; 2023 Sharath Kumar Gunti</p>
     </footer>
+
+    <!-- Add the modal for subscription -->
+    <div class="modal" id="subscribeModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2>Subscribe</h2>
+            <p>Enter your email:</p>
+            <input type="email" placeholder="Your email">
+            <button onclick="subscribe()">Subscribe</button>
+        </div>
+    </div>
+
+    <script>
+        // Script for handling modal
+        function openModal() {
+            document.getElementById('subscribeModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('subscribeModal').style.display = 'none';
+        }
+
+        function subscribe() {
+            // Add your subscribe logic here
+            alert('Subscribed!');
+            closeModal();
+        }
+    </script>
 </body>
 </html>
