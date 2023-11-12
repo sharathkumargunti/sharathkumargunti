@@ -40,7 +40,7 @@
 </head>
 <body>
     <header>
-        <h1>Hey👋,This is Sharath Kumar Gunti</h1>
+        <h1>Hey👋, This is Sharath Kumar Gunti</h1>
         <!-- Add the menu button -->
         <div id="menu-btn" onclick="openModal()">
             <i class="fas fa-bars"></i> Menu
@@ -62,7 +62,7 @@
     <section>
         <h2>About Me</h2>
         <p>
-            Hi there! I'm Sharath Kumar Gunti, a passionate Student. I love testing new teach and gadgets. Optimistic about the future of AI. 
+            Hi there! I'm Sharath Kumar Gunti, a passionate Student. I love testing new tech and gadgets. Optimistic about the future of AI. 
             Explore my website to learn more about my projects and journey.
         </p>
     </section>
@@ -82,20 +82,44 @@
         </div>
     </div>
 
+    <!-- Add the modal for sending a message -->
+    <div class="modal" id="sendMessageModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2>Send Message to Sharath</h2>
+            <p>Type your message:</p>
+            <textarea placeholder="Your message"></textarea>
+            <button onclick="sendMessage()">Send Message</button>
+        </div>
+    </div>
+
     <script>
-        // Script for handling modal
+        // Script for handling modals
         function openModal() {
             document.getElementById('subscribeModal').style.display = 'flex';
         }
 
         function closeModal() {
             document.getElementById('subscribeModal').style.display = 'none';
+            document.getElementById('sendMessageModal').style.display = 'none';
         }
 
         function subscribe() {
             // Add your subscribe logic here
             alert('Subscribed!');
             closeModal();
+        }
+
+        function sendMessage() {
+            // Add your logic for handling the sent message here
+            alert('Message sent!');
+            closeModal();
+        }
+
+        // Add script for opening the "Send Message" modal
+        function openSendMessageModal() {
+            closeModal(); // Close other modals if open
+            document.getElementById('sendMessageModal').style.display = 'flex';
         }
     </script>
 </body>
