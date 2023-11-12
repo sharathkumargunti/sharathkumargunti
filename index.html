@@ -15,10 +15,11 @@
         }
 
         #menu-btn {
-            position: absolute;
+            position: fixed;
             top: 10px;
             left: 10px;
             cursor: pointer;
+            z-index: 2;
         }
 
         /* Improve menu icon */
@@ -27,7 +28,8 @@
         }
 
         h1 {
-            margin-top: 20px; /* Adjust the margin to prevent overlap */
+            margin-top: 40px; /* Adjust the margin to prevent overlap */
+            padding-left: 40px; /* Ensure text doesn't overlap with menu button */
         }
 
         /* Add new styles for the modal */
