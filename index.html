@@ -4,11 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
     <style>
-        /* Global styles */
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #fff;
@@ -21,7 +18,6 @@
             color: inherit;
         }
 
-        /* Header styles */
         header {
             display: flex;
             justify-content: space-between;
@@ -36,7 +32,6 @@
             color: #fff;
         }
 
-        /* Navigation styles */
         nav {
             display: flex;
             flex-direction: column;
@@ -66,7 +61,6 @@
             color: #4285f4;
         }
 
-        /* Main content styles */
         main {
             display: flex;
             flex-direction: column;
@@ -91,7 +85,6 @@
             line-height: 1.6em;
         }
 
-        /* Footer styles */
         footer {
             display: flex;
             justify-content: space-between;
@@ -104,16 +97,8 @@
         footer p {
             color: #fff;
             font-size: 1.2rem;
-            margin-top: 20px;
         }
 
-        .copyright {
-            font-size: 0.8rem;
-            color: #fff;
-            text-align: right;
-        }
-
-        /* Social media links styles */
         .social-media-links {
             display: flex;
             align-items: center;
@@ -129,7 +114,6 @@
             color: #ff4081; /* Pink accent color */
         }
 
-        /* Button styles */
         button {
             background-color: #4285f4; /* Google Blue */
             color: #fff;
@@ -138,10 +122,100 @@
             border-radius: 16px;
             cursor: pointer;
         }
+        
+        button:hover {
+            background-color: #3b75cc; /* Slightly darker blue on hover */
+        }
     </style>
+    <title>Your Page Title</title>
 </head>
 <body>
     <header>
         <h1>Hey👋, This is Sharath Kumar Gunti</h1>
     </header>
-    
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="deepfakes.html">Deep Fakes</a></li>
+            <li><a href="ChatGPT.html">ChatGPT</a></li>
+            <li><a href="AI.html">AI</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section>
+            <p>Follow me on 
+                <a href="https://twitter.com/sharath_gunti" target="_blank">
+                    <i class="fab fa-twitter"></i> Twitter
+                </a>
+                and 
+                <a href="https://www.instagram.com/sharathkumargunti/" target="_blank">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+            </p>
+        </section>
+        <section>
+            <h2>About Me</h2>
+            <p>
+                Hi there! I'm Sharath Kumar Gunti, a passionate student. I love testing new tech and gadgets. Optimistic about the future of AI. 
+                Explore my website to learn more about my projects and journey.
+                **web page under development 
+            </p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Sharath Kumar Gunti</p>
+        <div class="social-media-links">
+            <a href="https://twitter.com/sharath_gunti" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.instagram.com/sharathkumargunti/" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+    </footer>
+    <div class="modal" id="subscribeModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2>Subscribe</h2>
+            <p>Enter your email:</p>
+            <input type="email" placeholder="Your email">
+            <button onclick="subscribe()">Subscribe</button>
+        </div>
+    </div>
+    <div class="modal" id="sendMessageModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2>Send Message to Sharath</h2>
+            <p>Type your message:</p>
+            <textarea placeholder="Your message"></textarea>
+            <button onclick="sendMessage()">Send Message</button>
+        </div>
+    </div>
+    <script>
+        function openModal() {
+            document.getElementById('subscribeModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('subscribeModal').style.display = 'none';
+            document.getElementById('sendMessageModal').style.display = 'none';
+        }
+
+        function subscribe() {
+            alert('Subscribed!');
+            closeModal();
+        }
+
+        function sendMessage() {
+            alert('Message sent!');
+            closeModal();
+        }
+
+        function openSendMessageModalChatGPT() {
+            closeModal();
+            document.getElementById('sendMessageModal').style.display = 'flex';
+        }
+
+        function openSendMessageModalAI() {
+            closeModal();
+            document.getElementById('sendMessageModal').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
