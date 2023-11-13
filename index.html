@@ -7,21 +7,21 @@
     <!-- Include Font Awesome CSS for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* General Styles */
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #fafafa;
+            background-color: #f0f0f0;
             margin: 0;
             padding: 0;
             color: #333;
         }
 
-        /* Header Styles */
         header {
-            background-color: #03a9f4;
+            background-color: #0288d1;
             padding: 15px;
             text-align: center;
             color: #fff;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
         }
 
         h1 {
@@ -29,10 +29,11 @@
             font-size: 2em;
         }
 
-        /* Navigation Styles */
         nav {
-            background-color: #2196f3;
+            background-color: #01579b;
             padding: 10px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
         }
 
         ul {
@@ -54,34 +55,33 @@
         }
 
         a:hover {
-            color: #f06292; /* Material Pink */
+            color: #ff4081;
         }
 
-        /* Main Section Styles */
         section {
             padding: 20px;
         }
 
         h2 {
-            color: #2196f3;
+            color: #0288d1;
         }
 
         p {
             line-height: 1.6em;
         }
 
-        /* Footer Styles */
         footer {
-            background-color: #03a9f4;
+            background-color: #0288d1;
             color: #fff;
             text-align: center;
             padding: 10px;
             position: fixed;
             bottom: 0;
             width: 100%;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
         }
 
-        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -97,7 +97,7 @@
         .modal-content {
             background-color: #fff;
             padding: 20px;
-            border-radius: 5px;
+            border-radius: 10px;
             text-align: center;
         }
 
@@ -106,30 +106,29 @@
             top: 10px;
             right: 10px;
             cursor: pointer;
-            color: #2196f3;
+            color: #0288d1;
             font-size: 1.5em;
         }
 
-        /* Button Styles */
         button {
-            background-color: #2196f3;
+            background-color: #0288d1;
             color: #fff;
             padding: 10px 20px;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
         button:hover {
-            background-color: #f06292; /* Material Pink */
+            background-color: #ff4081;
         }
     </style>
     <title>Sharath Kumar Gunti</title>
 </head>
 <body>
     <header>
-        <h1>Sharath Kumar Gunti</h1>
+        <h1>Hey👋, This is Sharath Kumar Gunti</h1>
     </header>
     <nav>
         <ul>
@@ -137,7 +136,6 @@
             <li><a href="deepfakes.html">Deep Fakes</a></li>
             <li><a href="ChatGPT.html">ChatGPT</a></li>
             <li><a href="AI.html">AI</a></li>
-            <!-- Add other navigation items as needed -->
         </ul>
     </nav>
     <section>
@@ -162,7 +160,6 @@
     <footer>
         <p>&copy; 2023 Sharath Kumar Gunti</p>
     </footer>
-    <!-- Add the modal for subscription -->
     <div class="modal" id="subscribeModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -172,7 +169,6 @@
             <button onclick="subscribe()">Subscribe</button>
         </div>
     </div>
-    <!-- Add the modal for sending a message -->
     <div class="modal" id="sendMessageModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -183,7 +179,6 @@
         </div>
     </div>
     <script>
-        // Script for handling modals
         function openModal() {
             document.getElementById('subscribeModal').style.display = 'flex';
         }
@@ -194,26 +189,22 @@
         }
 
         function subscribe() {
-            // Add your subscribe logic here
             alert('Subscribed!');
             closeModal();
         }
 
         function sendMessage() {
-            // Add your logic for handling the sent message here
             alert('Message sent!');
             closeModal();
         }
 
-        // Add script for opening the "Send Message" modal for ChatGPT
         function openSendMessageModalChatGPT() {
-            closeModal(); // Close other modals if open
+            closeModal();
             document.getElementById('sendMessageModal').style.display = 'flex';
         }
 
-        // Add script for opening the "Send Message" modal for AI
         function openSendMessageModalAI() {
-            closeModal(); // Close other modals if open
+            closeModal();
             document.getElementById('sendMessageModal').style.display = 'flex';
         }
     </script>
