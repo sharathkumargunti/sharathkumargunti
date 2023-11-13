@@ -4,7 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <!-- Include Font Awesome CSS for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Your existing styles */
+
+        /* Move menu button to top left */
+        header {
+            position: relative;
+        }
+
+        #menu-btn {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        /* Improve menu icon */
+        #menu-btn i {
+            font-size: 1.5rem;
+        }
+
+        h1 {
+            margin-top: 40px; /* Adjust the margin to prevent overlap */
+            padding-left: 40px; /* Ensure text doesn't overlap with menu button */
+        }
+
+        /* Add new styles for the modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+    </style>
     <title>Sharath Kumar Gunti</title>
 </head>
 <body>
@@ -13,10 +67,21 @@
             <i class="fas fa-bars"></i>
         </div>
         <h1>Hey👋, This is Sharath Kumar Gunti</h1>
-        <a href="contact.html" class="contact-btn">Contact Me</a>
     </header>
-
-    <section id="about">
+    
+    <section>
+        <p>Follow me on 
+            <a href="https://twitter.com/sharath_gunti" target="_blank">
+                <i class="fab fa-twitter"></i> Twitter
+            </a>
+            and 
+            <a href="https://www.instagram.com/sharathkumargunti/" target="_blank">
+                <i class="fab fa-instagram"></i> Instagram
+            </a>
+        </p>
+    </section>
+    
+    <section>
         <h2>About Me</h2>
         <p>
             Hi there! I'm Sharath Kumar Gunti, a passionate Student. I love testing new tech and gadgets. Optimistic about the future of AI. 
@@ -24,29 +89,11 @@
         </p>
     </section>
 
-    <section id="projects">
-        <h2>Projects</h2>
-        <p>
-            I'm currently working on several exciting projects. Stay tuned to learn more about them soon!
-        </p>
-    </section>
-
-    <section id="contact">
-        <h2>Contact Me</h2>
-        <p>
-            Feel free to reach out if you have any questions or want to collaborate.
-        </p>
-
-        <ul class="contact-info">
-            <li><i class="fas fa-envelope"></i> sharathkumargunti@gmail.com</li>
-            <li><i class="fab fa-linkedin-in"></i> <a href="https://in.linkedin.com/in/sharath-kumar-36a9b5195" target="_blank">linkedin.com/in/sharath-kumar-gunti-97b4111a/</a></li>
-        </ul>
-    </section>
-
     <footer>
         <p>&copy; 2023 Sharath Kumar Gunti</p>
     </footer>
 
+    <!-- Add the modal for subscription -->
     <div class="modal" id="subscribeModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -57,6 +104,7 @@
         </div>
     </div>
 
+    <!-- Add the modal for sending a message -->
     <div class="modal" id="sendMessageModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -92,7 +140,7 @@
 
         // Add script for opening the "Send Message" modal
         function openSendMessageModal() {
-            closeModal();
+            closeModal(); // Close other modals if open
             document.getElementById('sendMessageModal').style.display = 'flex';
         }
     </script>
