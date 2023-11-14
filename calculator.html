@@ -42,6 +42,9 @@
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         h2 {
@@ -64,7 +67,7 @@
         }
 
         button {
-            width: 30%;
+            width: 20%;
             padding: 15px;
             margin: 5px;
             font-size: 1.5rem;
@@ -76,10 +79,10 @@
             transition: background-color 0.3s;
         }
 
-        @media screen and (max-width: 600px) {
-            button {
-                width: 48%;
-            }
+        buttonContainer {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
         }
 
         footer {
@@ -115,31 +118,39 @@
 
         <br>
 
-        <button onclick="appendToDisplay('1')">1</button>
-        <button onclick="appendToDisplay('2')">2</button>
-        <button onclick="appendToDisplay('3')">3</button>
-        <button onclick="appendToDisplay('+')">+</button>
+        <buttonContainer>
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button onclick="appendToDisplay('+')">+</button>
+        </buttonContainer>
 
         <br>
 
-        <button onclick="appendToDisplay('4')">4</button>
-        <button onclick="appendToDisplay('5')">5</button>
-        <button onclick="appendToDisplay('6')">6</button>
-        <button onclick="appendToDisplay('-')">-</button>
+        <buttonContainer>
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button onclick="appendToDisplay('-')">-</button>
+        </buttonContainer>
 
         <br>
 
-        <button onclick="appendToDisplay('7')">7</button>
-        <button onclick="appendToDisplay('8')">8</button>
-        <button onclick="appendToDisplay('9')">9</button>
-        <button onclick="appendToDisplay('*')">*</button>
+        <buttonContainer>
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button onclick="appendToDisplay('*')">*</button>
+        </buttonContainer>
 
         <br>
 
-        <button onclick="appendToDisplay('0')">0</button>
-        <button onclick="clearDisplay()">C</button>
-        <button onclick="calculateResult()">=</button>
-        <button onclick="appendToDisplay('/')">/</button>
+        <buttonContainer>
+            <button onclick="appendToDisplay('0')">0</button>
+            <button onclick="clearDisplay()">C</button>
+            <button onclick="calculateResult()">=</button>
+            <button onclick="appendToDisplay('/')">/</button>
+        </buttonContainer>
     </main>
     <footer>
         <p>&copy; 2023 Sharath Kumar Gunti</p>
