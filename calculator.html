@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Calculator styles */
         body {
             font-family: 'Montserrat', sans-serif;
             text-align: center;
@@ -15,8 +14,29 @@
             background-color: #f4f4f4;
         }
 
+        header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #35424a;
+            padding: 20px;
+            color: #fff;
+        }
+
+        header img {
+            max-width: 50px;
+            height: auto;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        header h1 {
+            font-size: 1.8em;
+            margin: 0;
+        }
+
         input {
-            width: 100%;
+            width: 80%;
             padding: 15px;
             margin-bottom: 20px;
             font-size: 1.5rem;
@@ -28,7 +48,7 @@
 
         button {
             padding: 15px;
-            width: 48px;
+            width: 25%;
             margin: 5px;
             font-size: 1.5rem;
             border: none;
@@ -44,7 +64,7 @@
         }
 
         main {
-            max-width: 400px;
+            max-width: 600px;
             margin: 20px auto;
             padding: 20px;
             background-color: #fff;
@@ -56,6 +76,24 @@
             font-size: 2rem;
             margin-bottom: 20px;
             color: #2c3e50;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #35424a;
+            padding: 20px;
+            color: #fff;
+            margin-top: 20px;
+        }
+
+        .social-media-links a {
+            margin: 0 10px;
+            color: #fff;
+            font-size: 1.4rem;
+        }
+
+        .social-media-links a:hover {
+            color: #e74c3c;
         }
     </style>
     <title>Calculator</title>
