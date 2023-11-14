@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Add your styles here if needed */
+    </style>
+    <title>Simple Game</title>
+</head>
+
+<body>
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">
+        <span class="dark-mode-symbol">&#127774;</span>
+    </button>
+    <header>
+        <img src="IMG_20231114_125321.png" alt="Your Logo">
+        <h1>Sharath Kumar Gunti</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="deepfakes.html">Deep Fakes</a></li>
+            <li><a href="ChatGPT.html">ChatGPT</a></li>
+            <li><a href="AI.html">AI</a></li>
+            <li><a href="game.html">Simple Game</a></li> <!-- Added link to Simple Game page -->
+        </ul>
+    </nav>
+    <main>
+        <section>
+            <h2>Simple Game</h2>
+            <button onclick="playGame()">Play Game</button>
+            <p id="game-result"></p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Sharath Kumar Gunti</p>
+        <div class="social-media-links">
+            <a href="https://twitter.com/sharath_gunti" target="_blank">Twitter</a>
+            <a href="https://www.instagram.com/sharathkumargunti/" target="_blank">Instagram</a>
+        </div>
+    </footer>
+
+    <script>
+        const toggleDarkMode = () => {
+            const body = document.body;
+            body.classList.toggle('dark-mode');
+        };
+
+        const playGame = () => {
+            const randomNumber = Math.floor(Math.random() * 10) + 1;
+            const userGuess = prompt('Guess the number between 1 and 10:');
+            if (userGuess == randomNumber) {
+                document.getElementById('game-result').innerText = 'Congratulations! You guessed the correct number!';
+            } else {
+                document.getElementById('game-result').innerText = `Sorry, the correct number was ${randomNumber}. Try again!`;
+            }
+        };
+    </script>
+</body>
+
+</html>
