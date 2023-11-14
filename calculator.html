@@ -7,7 +7,25 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Add your styles here if needed */
+        /* Calculator styles */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px;
+            width: 48px;
+            margin: 5px;
+            font-size: 16px;
+        }
     </style>
     <title>Calculator</title>
 </head>
@@ -26,18 +44,41 @@
             <li><a href="deepfakes.html">Deep Fakes</a></li>
             <li><a href="ChatGPT.html">ChatGPT</a></li>
             <li><a href="AI.html">AI</a></li>
-            <li><a href="calculator.html">Calculator</a></li> <!-- Added link to Calculator page -->
+            <li><a href="calculator.html" class="calculator">Calculator</a></li>
         </ul>
     </nav>
     <main>
-        <section>
-            <h2>Calculator</h2>
-            <div>
-                <input type="text" id="calculator-input" placeholder="Enter expression">
-                <button onclick="calculate()">Calculate</button>
-                <p id="calculator-result"></p>
-            </div>
-        </section>
+        <h2>Simple Calculator</h2>
+
+        <input type="text" id="display" disabled>
+
+        <br>
+
+        <button onclick="appendToDisplay('1')">1</button>
+        <button onclick="appendToDisplay('2')">2</button>
+        <button onclick="appendToDisplay('3')">3</button>
+        <button onclick="appendToDisplay('+')">+</button>
+
+        <br>
+
+        <button onclick="appendToDisplay('4')">4</button>
+        <button onclick="appendToDisplay('5')">5</button>
+        <button onclick="appendToDisplay('6')">6</button>
+        <button onclick="appendToDisplay('-')">-</button>
+
+        <br>
+
+        <button onclick="appendToDisplay('7')">7</button>
+        <button onclick="appendToDisplay('8')">8</button>
+        <button onclick="appendToDisplay('9')">9</button>
+        <button onclick="appendToDisplay('*')">*</button>
+
+        <br>
+
+        <button onclick="appendToDisplay('0')">0</button>
+        <button onclick="clearDisplay()">C</button>
+        <button onclick="calculateResult()">=</button>
+        <button onclick="appendToDisplay('/')">/</button>
     </main>
     <footer>
         <p>&copy; 2023 Sharath Kumar Gunti</p>
@@ -53,15 +94,21 @@
             body.classList.toggle('dark-mode');
         };
 
-        const calculate = () => {
-            const input = document.getElementById('calculator-input').value;
+        function appendToDisplay(value) {
+            document.getElementById('display').value += value;
+        }
+
+        function clearDisplay() {
+            document.getElementById('display').value = '';
+        }
+
+        function calculateResult() {
             try {
-                const result = eval(input);
-                document.getElementById('calculator-result').innerText = `Result: ${result}`;
+                document.getElementById('display').value = eval(document.getElementById('display').value);
             } catch (error) {
-                document.getElementById('calculator-result').innerText = 'Invalid expression';
+                document.getElementById('display').value = 'Error';
             }
-        };
+        }
     </script>
 </body>
 
