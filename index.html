@@ -186,7 +186,7 @@
                 about the future of AI.
                 Explore my website to learn more about my projects and journey.
                 **Web page under development**
-            </p>
+            </p>            </p>
         </section>
     </main>
     <footer>
@@ -216,7 +216,48 @@
                 menuList.classList.remove('show-menu');
             }
         });
+
+        const copyCoordinates = () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function (position) {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+                        const coordinatesText = `Latitude: ${latitude}, Longitude: ${longitude}`;
+                        const locationText = "Fetching location..."; // You can replace this with a reverse geocoding API to get the address
+
+                        // Display coordinates and location
+                        alert(coordinatesText); // Change this to your desired display method
+                        document.getElementById('coordinates').textContent = coordinatesText;
+                        document.getElementById('location').textContent = locationText;
+
+                        // Copy coordinates to clipboard
+                        copyToClipboard(coordinatesText);
+                    },
+                    function (error) {
+                        console.error(`Error getting location: ${error.message}`);
+                        document.getElementById('coordinates').textContent = "Unable to fetch coordinates.";
+                        document.getElementById('location').textContent = "";
+                    }
+                );
+            } else {
+                console.error("Geolocation is not supported by this browser.");
+                document.getElementById('coordinates').textContent = "Geolocation is not supported.";
+                document.getElementById('location').textContent = "";
+            }
+        };
+
+        const copyToClipboard = (text) => {
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = text;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+        };
     </script>
 </body>
 
 </html>
+
+            
