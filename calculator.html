@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Add your styles here if needed */
+    </style>
+    <title>Calculator</title>
+</head>
+
+<body>
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">
+        <span class="dark-mode-symbol">&#127774;</span>
+    </button>
+    <header>
+        <img src="IMG_20231114_125321.png" alt="Your Logo">
+        <h1>Sharath Kumar Gunti</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="deepfakes.html">Deep Fakes</a></li>
+            <li><a href="ChatGPT.html">ChatGPT</a></li>
+            <li><a href="AI.html">AI</a></li>
+            <li><a href="calculator.html">Calculator</a></li> <!-- Added link to Calculator page -->
+        </ul>
+    </nav>
+    <main>
+        <section>
+            <h2>Calculator</h2>
+            <div>
+                <input type="text" id="calculator-input" placeholder="Enter expression">
+                <button onclick="calculate()">Calculate</button>
+                <p id="calculator-result"></p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Sharath Kumar Gunti</p>
+        <div class="social-media-links">
+            <a href="https://twitter.com/sharath_gunti" target="_blank">Twitter</a>
+            <a href="https://www.instagram.com/sharathkumargunti/" target="_blank">Instagram</a>
+        </div>
+    </footer>
+
+    <script>
+        const toggleDarkMode = () => {
+            const body = document.body;
+            body.classList.toggle('dark-mode');
+        };
+
+        const calculate = () => {
+            const input = document.getElementById('calculator-input').value;
+            try {
+                const result = eval(input);
+                document.getElementById('calculator-result').innerText = `Result: ${result}`;
+            } catch (error) {
+                document.getElementById('calculator-result').innerText = 'Invalid expression';
+            }
+        };
+    </script>
+</body>
+
+</html>
