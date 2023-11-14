@@ -62,29 +62,28 @@
         }
 
         .menu-list {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: none;
-    position: absolute;
-    background-color: #1e272e;
-    width: 100%;
-    text-align: center;
-    z-index: 1;
-    opacity: 0; /* Set initial opacity to 0 for a fade-in effect */
-    transform: translateY(-20px); /* Move the menu panel up initially */
-    transition: opacity 0.3s, transform 0.3s;
-}
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: none;
+            position: absolute;
+            background-color: #1e272e;
+            width: 200px; /* Adjust the width as needed */
+            text-align: center;
+            z-index: 1;
+            border-top-left-radius: 10px; /* Rounded corners */
+            border-bottom-left-radius: 10px; /* Rounded corners */
+            transform: translateX(-100%);
+            transition: transform 0.3s;
+            top: 55px;
+        }
 
-.menu-list.show-menu {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 60px; /* Adjusted top position for better alignment */
-    opacity: 1; /* Make the menu panel visible */
-    transform: translateY(0); /* Bring the menu panel back to its original position */
-}
-        
+        .menu-list.show-menu {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            transform: translateX(0);
+        }
 
         .menu-list li {
             margin: 10px 0;
@@ -192,7 +191,7 @@
                 about the future of AI.
                 Explore my website to learn more about my projects and journey.
                 **Web page under development**
-            </p>            </p>
+            </p>
         </section>
     </main>
     <footer>
@@ -230,14 +229,12 @@
                         const latitude = position.coords.latitude;
                         const longitude = position.coords.longitude;
                         const coordinatesText = `Latitude: ${latitude}, Longitude: ${longitude}`;
-                        const locationText = "Fetching location..."; // You can replace this with a reverse geocoding API to get the address
+                        const locationText = "Fetching location..."; 
 
-                        // Display coordinates and location
-                        alert(coordinatesText); // Change this to your desired display method
+                        alert(coordinatesText);
                         document.getElementById('coordinates').textContent = coordinatesText;
                         document.getElementById('location').textContent = locationText;
 
-                        // Copy coordinates to clipboard
                         copyToClipboard(coordinatesText);
                     },
                     function (error) {
@@ -266,4 +263,4 @@
 
 </html>
 
-            
+                        
