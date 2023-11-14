@@ -12,6 +12,12 @@
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.dark-mode {
+            background-color: #222;
+            color: #fff;
         }
 
         header {
@@ -103,44 +109,26 @@
             color: #e74c3c;
         }
 
-        button {
-            background-color: #3498db;
+        button.dark-mode-toggle {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #1e272e;
             color: #fff;
-            padding: 10px 20px;
             border: none;
-            border-radius: 4px;
+            padding: 5px;
             cursor: pointer;
         }
 
-        button:hover {
-            background-color: #2980b9;
-        }
-
-        /* Additional styles for the form */
-        form {
-            max-width: 600px;
-            margin: 20px auto;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        input,
-        textarea {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
+        button.dark-mode-toggle:hover {
+            background-color: #34495e;
         }
     </style>
     <title>Your New Page Title</title>
 </head>
 
 <body>
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">Toggle Dark Mode</button>
     <header>
         <img src="G.png" alt="Your Logo">
         <h1>Sharath Kumar Gunti</h1>
@@ -178,6 +166,13 @@
             <a href="https://www.instagram.com/sharathkumargunti/" target="_blank">Instagram</a>
         </div>
     </footer>
+
+    <script>
+        const toggleDarkMode = () => {
+            const body = document.body;
+            body.classList.toggle('dark-mode');
+        };
+    </script>
 </body>
 
 </html>
