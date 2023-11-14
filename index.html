@@ -118,17 +118,26 @@
             border: none;
             padding: 5px;
             cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
         }
 
         button.dark-mode-toggle:hover {
             background-color: #34495e;
+        }
+
+        .moon-icon {
+            margin-right: 5px;
         }
     </style>
     <title>Your New Page Title</title>
 </head>
 
 <body>
-    <button class="dark-mode-toggle" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">
+        <span class="moon-icon">&#127769;</span> Toggle Dark Mode
+    </button>
     <header>
         <img src="G.png" alt="Your Logo">
         <h1>Sharath Kumar Gunti</h1>
