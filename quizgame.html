@@ -48,6 +48,14 @@
             background-color: #2980b9;
         }
 
+        .correct {
+            background-color: #2ecc71;
+        }
+
+        .incorrect {
+            background-color: #e74c3c;
+        }
+
         #next-button {
             background-color: #2ecc71;
             margin-top: 30px;
@@ -56,6 +64,15 @@
         #next-button:disabled {
             background-color: #bdc3c7;
             cursor: not-allowed;
+        }
+
+        #result-container {
+            display: none;
+            margin-top: 30px;
+        }
+
+        #result-message {
+            font-size: 1.2rem;
         }
     </style>
 </head>
@@ -66,6 +83,10 @@
         <div id="question-container"></div>
         <div id="answer-buttons" class="btn-container"></div>
         <button onclick="nextQuestion()" id="next-button" class="btn" disabled>Next</button>
+        <div id="result-container">
+            <h2>Quiz Result</h2>
+            <p id="result-message"></p>
+        </div>
     </div>
     <script>
         const questions = [
@@ -95,18 +116,51 @@
                     { text: "Giraffe", correct: false },
                     { text: "Hippopotamus", correct: false }
                 ]
+            },
+            {
+                question: "Which programming language is known for its use in web development?",
+                answers: [
+                    { text: "Java", correct: false },
+                    { text: "Python", correct: false },
+                    { text: "JavaScript", correct: true },
+                    { text: "C++", correct: false }
+                ]
+            },
+            {
+                question: "In which year did the Titanic sink?",
+                answers: [
+                    { text: "1910", correct: false },
+                    { text: "1912", correct: true },
+                    { text: "1920", correct: false },
+                    { text: "1935", correct: false }
+                ]
+            },
+            {
+                question: "What is the capital of Japan?",
+                answers: [
+                    { text: "Beijing", correct: false },
+                    { text: "Seoul", correct: false },
+                    { text: "Tokyo", correct: true },
+                    { text: "Bangkok", correct: false }
+                ]
             }
+            // Add more questions as needed
         ];
 
         let currentQuestionIndex = 0;
+        let score = 0;
 
         const questionContainer = document.getElementById('question-container');
         const answerButtonsContainer = document.getElementById('answer-buttons');
         const nextButton = document.getElementById('next-button');
+        const resultContainer = document.getElementById('result-container');
+        const resultMessage = document.getElementById('result-message');
 
         function startGame() {
             currentQuestionIndex = 0;
+            score = 0;
             nextButton.classList.add('hide');
+            resultContainer.classList.add('hide');
             showQuestion(questions[currentQuestionIndex]);
         }
 
@@ -130,15 +184,25 @@
 
         function selectAnswer(answer) {
             const correct = answer.correct;
-            Array.from(answerButtonsContainer.children).forEach(button => {
+            const buttons = Array.from(answerButtonsContainer.children);
+
+            buttons.forEach(button => {
                 button.disabled = true;
                 if (button.innerText === "Next") {
                     button.classList.remove('hide');
                 }
+                if (answer.correct) {
+                    button.classList.add('correct');
+                } else if (button.innerText === answer.text) {
+                    button.classList.add('incorrect');
+                }
             });
+
             if (correct) {
-                nextButton.disabled = false;
+                score++;
             }
+
+            nextButton.disabled = false;
         }
 
         function nextQuestion() {
@@ -148,10 +212,14 @@
                 resetAnswerButtons();
                 nextButton.classList.add('hide');
             } else {
-                questionContainer.innerText = "Quiz completed!";
-                resetAnswerButtons();
-                nextButton.classList.add('hide');
+                showResult();
             }
+        }
+
+        function showResult() {
+            resultMessage.innerText = `You scored ${score} out of ${questions.length}!`;
+            resultContainer.classList.remove('hide');
+            nextButton.classList.add('hide');
         }
 
         nextButton.addEventListener('click', nextQuestion);
