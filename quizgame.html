@@ -135,6 +135,167 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    const questions = [
+      {
+        question: "What is the capital of Japan?",
+        options: ["Beijing", "Seoul", "Tokyo", "Bangkok"],
+        answer: "Tokyo",
+      },
+      {
+        question: "Which planet is known as the 'Red Planet'?",
+        options: ["Mars", "Venus", "Jupiter", "Saturn"],
+        answer: "Mars",
+      },
+      {
+        question: "Who wrote 'To Kill a Mockingbird'?",
+        options: ["Harper Lee", "J.K. Rowling", "George Orwell", "Ernest Hemingway"],
+        answer: "Harper Lee",
+      },
+      {
+        question: "What is the largest mammal on Earth?",
+        options: ["Elephant", "Blue Whale", "Giraffe", "Hippopotamus"],
+        answer: "Blue Whale",
+      },
+      {
+        question: "Which country is known as the 'Land of the Rising Sun'?",
+        options: ["China", "South Korea", "Japan", "Vietnam"],
+        answer: "Japan",
+      },
+      {
+        question: "Who painted the Mona Lisa?",
+        options: ["Leonardo da Vinci", "Pablo Picasso", "Vincent van Gogh", "Claude Monet"],
+        answer: "Leonardo da Vinci",
+      },
+      {
+        question: "What is the smallest prime number?",
+        options: ["1", "2", "3", "5"],
+        answer: "2",
+      },
+      {
+        question: "Which element has the chemical symbol 'O'?",
+        options: ["Oxygen", "Gold", "Silver", "Iron"],
+        answer: "Oxygen",
+      },
+      {
+        question: "In what year did World War II end?",
+        options: ["1943", "1945", "1950", "1939"],
+        answer: "1945",
+      },
+      {
+        question: "What is the currency of Brazil?",
+        options: ["Peso", "Real", "Euro", "Yen"],
+        answer: "Real",
+      },
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let selectedOption = null;
+    let feedbackText = "";
+
+    const questionTextElement = document.getElementById("question-text");
+    const optionsElement = document.querySelector(".options");
+    const feedbackElement = document.getElementById("feedback-text");
+    const scoreTextElement = document.getElementById("score-text");
+
+    const previousButton = document.getElementById("previous-button");
+    const submitButton = document.getElementById("submit-button");
+    const nextButton = document.getElementById("next-button");
+
+    previousButton.addEventListener("click", previousQuestion);
+    submitButton.addEventListener("click", checkAnswer);
+    nextButton.addEventListener("click", nextQuestion);
+
+    function showQuestion() {
+      const question = questions[currentQuestion];
+      questionTextElement.textContent = question.question;
+
+      // Clear previous options
+      while (optionsElement.firstChild) {
+        optionsElement.removeChild(optionsElement.firstChild);
+      }
+
+      // Display options
+      question.options.forEach((option, index) => {
+        const optionButton = document.createElement("button");
+        optionButton.id = `option-${index + 1}`;
+        optionButton.classList.add("option-button");
+        optionButton.textContent = option;
+        optionButton.addEventListener("click", () => selectOption(index + 1));
+        optionsElement.appendChild(optionButton);
+      });
+    }
+
+    function selectOption(optionNumber) {
+      selectedOption = optionNumber;
+
+      // Reset styles for all options
+      const optionButtons = document.querySelectorAll(".option-button");
+      optionButtons.forEach((button) => button.classList.remove("selected"));
+
+      // Highlight selected option
+      const selectedOptionButton = document.getElementById(`option-${optionNumber}`);
+      selectedOptionButton.classList.add("selected");
+    }
+
+    function checkAnswer() {
+      const question = questions[currentQuestion];
+      const correctOption = question.options.findIndex((option) => option === question.answer) + 1;
+
+      // Highlight correct and incorrect options
+      const correctOptionButton = document.getElementById(`option-${correctOption}`);
+      correctOptionButton.classList.add("correct");
+
+      if (selectedOption !== correctOption) {
+        const selectedOptionButton = document.getElementById(`option-${selectedOption}`);
+        selectedOptionButton.classList.add("incorrect");
+      }
+
+      // Disable option buttons after checking the answer
+      const optionButtons = document.querySelectorAll(".option-button");
+      optionButtons.forEach((button) => button.disabled = true);
+
+      // Show feedback
+      feedbackText = selectedOption === correctOption ? "Correct!" : "Incorrect!";
+      feedbackElement.textContent = feedbackText;
+
+      // Update score
+      if (selectedOption === correctOption) {
+        score++;
+      }
+      scoreTextElement.textContent = score;
+    }
+
+    function resetStyles() {
+      const optionButtons = document.querySelectorAll(".option-button");
+      optionButtons.forEach((button) => {
+        button.classList.remove("selected", "correct", "incorrect");
+        button.disabled = false;
+      });
+
+      feedbackElement.textContent = "";
+    }
+
+    function previousQuestion() {
+      if (currentQuestion > 0) {
+        currentQuestion--;
+        showQuestion();
+        resetStyles();
+      }
+    }
+
+    function nextQuestion() {
+      if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
+        showQuestion();
+        resetStyles();
+      }
+    }
+
+    // Initial setup
+    showQuestion();
+  </script>
 </body>
 </html>
+
