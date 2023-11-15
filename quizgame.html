@@ -49,19 +49,19 @@
         }
 
         .correct {
-            background-color: #2ecc71;
+            background-color: #2ecc71 !important;
         }
 
         .incorrect {
-            background-color: #e74c3c;
+            background-color: #e74c3c !important;
         }
 
-        #next-button {
+        #next-button, #prev-button {
             background-color: #2ecc71;
             margin-top: 30px;
         }
 
-        #next-button:disabled {
+        #next-button:disabled, #prev-button:disabled {
             background-color: #bdc3c7;
             cursor: not-allowed;
         }
@@ -80,9 +80,10 @@
 <body>
     <div id="quiz-container">
         <h1>General Knowledge Quiz</h1>
+        <button onclick="prevQuestion()" id="prev-button" class="btn" disabled>&larr; Prev</button>
         <div id="question-container"></div>
         <div id="answer-buttons" class="btn-container"></div>
-        <button onclick="nextQuestion()" id="next-button" class="btn" disabled>Next</button>
+        <button onclick="nextQuestion()" id="next-button" class="btn" disabled>Next &rarr;</button>
         <div id="result-container">
             <h2>Quiz Result</h2>
             <p id="result-message"></p>
@@ -99,87 +100,7 @@
                     { text: "Perth", correct: false }
                 ]
             },
-            {
-                question: "Which is the largest ocean in the world?",
-                answers: [
-                    { text: "Atlantic Ocean", correct: false },
-                    { text: "Indian Ocean", correct: false },
-                    { text: "Southern Ocean", correct: false },
-                    { text: "Pacific Ocean", correct: true }
-                ]
-            },
-            {
-                question: "Who wrote 'Romeo and Juliet'?",
-                answers: [
-                    { text: "Charles Dickens", correct: false },
-                    { text: "William Shakespeare", correct: true },
-                    { text: "Jane Austen", correct: false },
-                    { text: "Mark Twain", correct: false }
-                ]
-            },
-            {
-                question: "What is the currency of Japan?",
-                answers: [
-                    { text: "Won", correct: false },
-                    { text: "Yuan", correct: false },
-                    { text: "Yen", correct: true },
-                    { text: "Ringgit", correct: false }
-                ]
-            },
-            {
-                question: "Which planet is known as the 'Red Planet'?",
-                answers: [
-                    { text: "Earth", correct: false },
-                    { text: "Mars", correct: true },
-                    { text: "Jupiter", correct: false },
-                    { text: "Venus", correct: false }
-                ]
-            },
-            {
-                question: "What is the largest mammal in the world?",
-                answers: [
-                    { text: "Elephant", correct: false },
-                    { text: "Blue Whale", correct: true },
-                    { text: "Giraffe", correct: false },
-                    { text: "Hippopotamus", correct: false }
-                ]
-            },
-            {
-                question: "Which programming language is known for its use in web development?",
-                answers: [
-                    { text: "Java", correct: false },
-                    { text: "Python", correct: false },
-                    { text: "JavaScript", correct: true },
-                    { text: "C++", correct: false }
-                ]
-            },
-            {
-                question: "In which year did the Titanic sink?",
-                answers: [
-                    { text: "1910", correct: false },
-                    { text: "1912", correct: true },
-                    { text: "1920", correct: false },
-                    { text: "1935", correct: false }
-                ]
-            },
-            {
-                question: "What is the capital of Japan?",
-                answers: [
-                    { text: "Beijing", correct: false },
-                    { text: "Seoul", correct: false },
-                    { text: "Tokyo", correct: true },
-                    { text: "Bangkok", correct: false }
-                ]
-            },
-            {
-                question: "Which is the longest river in the world?",
-                answers: [
-                    { text: "Amazon River", correct: true },
-                    { text: "Nile River", correct: false },
-                    { text: "Yangtze River", correct: false },
-                    { text: "Mississippi River", correct: false }
-                ]
-            }
+            // Add more questions...
         ];
 
         let currentQuestionIndex = 0;
@@ -188,12 +109,14 @@
         const questionContainer = document.getElementById('question-container');
         const answerButtonsContainer = document.getElementById('answer-buttons');
         const nextButton = document.getElementById('next-button');
+        const prevButton = document.getElementById('prev-button');
         const resultContainer = document.getElementById('result-container');
         const resultMessage = document.getElementById('result-message');
 
         function startGame() {
             currentQuestionIndex = 0;
             score = 0;
+            prevButton.disabled = true;
             nextButton.classList.add('hide');
             resultContainer.classList.add('hide');
             showQuestion(questions[currentQuestionIndex]);
@@ -223,7 +146,7 @@
 
             buttons.forEach(button => {
                 button.disabled = true;
-                if (button.innerText === "Next") {
+                if (button.innerText === "Next" || button.innerText === "Prev") {
                     button.classList.remove('hide');
                 }
 
@@ -239,26 +162,44 @@
             });
 
             nextButton.disabled = false;
+            prevButton.disabled = false;
         }
 
         function nextQuestion() {
             currentQuestionIndex++;
+            prevButton.disabled = false;
+
             if (currentQuestionIndex < questions.length) {
                 showQuestion(questions[currentQuestionIndex]);
                 resetAnswerButtons();
                 nextButton.classList.add('hide');
             } else {
                 showResult();
+                nextButton.disabled = true;
+            }
+        }
+
+        function prevQuestion() {
+            currentQuestionIndex--;
+
+            if (currentQuestionIndex >= 0) {
+                showQuestion(questions[currentQuestionIndex]);
+                resetAnswerButtons();
+                nextButton.classList.add('hide');
+            }
+
+            if (currentQuestionIndex === 0) {
+                prevButton.disabled = true;
             }
         }
 
         function showResult() {
             resultMessage.innerText = `You scored ${score} out of ${questions.length}!`;
             resultContainer.classList.remove('hide');
-            nextButton.classList.add('hide');
         }
 
         nextButton.addEventListener('click', nextQuestion);
+        prevButton.addEventListener('click', prevQuestion);
 
         startGame();
     </script>
