@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Quiz Game</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #quiz-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .btn-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+
+        #next-button {
+            background-color: #2ecc71;
+            margin-top: 30px;
+        }
+
+        #next-button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="quiz-container">
+        <h1>General Knowledge Quiz</h1>
+        <div id="question-container"></div>
+        <div id="answer-buttons" class="btn-container"></div>
+        <button onclick="nextQuestion()" id="next-button" class="btn" disabled>Next</button>
+    </div>
+    <script>
+        const questions = [
+            {
+                question: "What is the capital of France?",
+                answers: [
+                    { text: "Berlin", correct: false },
+                    { text: "Madrid", correct: false },
+                    { text: "Paris", correct: true },
+                    { text: "Rome", correct: false }
+                ]
+            },
+            {
+                question: "Which planet is known as the Red Planet?",
+                answers: [
+                    { text: "Earth", correct: false },
+                    { text: "Mars", correct: true },
+                    { text: "Jupiter", correct: false },
+                    { text: "Venus", correct: false }
+                ]
+            },
+            {
+                question: "What is the largest mammal in the world?",
+                answers: [
+                    { text: "Elephant", correct: false },
+                    { text: "Blue Whale", correct: true },
+                    { text: "Giraffe", correct: false },
+                    { text: "Hippopotamus", correct: false }
+                ]
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+
+        const questionContainer = document.getElementById('question-container');
+        const answerButtonsContainer = document.getElementById('answer-buttons');
+        const nextButton = document.getElementById('next-button');
+
+        function startGame() {
+            currentQuestionIndex = 0;
+            nextButton.classList.add('hide');
+            showQuestion(questions[currentQuestionIndex]);
+        }
+
+        function showQuestion(question) {
+            questionContainer.innerText = question.question;
+            resetAnswerButtons();
+            question.answers.forEach(answer => {
+                const button = document.createElement('button');
+                button.innerText = answer.text;
+                button.classList.add('btn');
+                button.addEventListener('click', () => selectAnswer(answer));
+                answerButtonsContainer.appendChild(button);
+            });
+        }
+
+        function resetAnswerButtons() {
+            while (answerButtonsContainer.firstChild) {
+                answerButtonsContainer.removeChild(answerButtonsContainer.firstChild);
+            }
+        }
+
+        function selectAnswer(answer) {
+            const correct = answer.correct;
+            Array.from(answerButtonsContainer.children).forEach(button => {
+                button.disabled = true;
+                if (button.innerText === "Next") {
+                    button.classList.remove('hide');
+                }
+            });
+            if (correct) {
+                nextButton.disabled = false;
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                showQuestion(questions[currentQuestionIndex]);
+                resetAnswerButtons();
+                nextButton.classList.add('hide');
+            } else {
+                questionContainer.innerText = "Quiz completed!";
+                resetAnswerButtons();
+                nextButton.classList.add('hide');
+            }
+        }
+
+        nextButton.addEventListener('click', nextQuestion);
+
+        startGame();
+    </script>
+</body>
+
+</html>
