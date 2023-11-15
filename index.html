@@ -147,6 +147,12 @@
         .dark-mode-symbol {
             margin-right: 5px;
         }
+
+        /* New styles for the coordinates display */
+        #coordinates {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
     </style>
     <title>Home</title>
 </head>
@@ -189,6 +195,10 @@
                 **Web page under development**
             </p>
         </section>
+        <section>
+            <button onclick="copyCoordinates()">Copy Coordinates</button>
+            <p id="coordinates">Click the button to copy coordinates.</p>
+        </section>
     </main>
     <footer>
         <p>&copy; 2023 Sharath Kumar Gunti</p>
@@ -222,28 +232,23 @@
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     function (position) {
-                        
                         const latitude = position.coords.latitude;
                         const longitude = position.coords.longitude;
                         const coordinatesText = `Latitude: ${latitude}, Longitude: ${longitude}`;
-                        const locationText = "Fetching location...";
 
-                        alert(coordinatesText);
                         document.getElementById('coordinates').textContent = coordinatesText;
-                        document.getElementById('location').textContent = locationText;
 
+                        // New: Copy coordinates to clipboard
                         copyToClipboard(coordinatesText);
                     },
                     function (error) {
                         console.error(`Error getting location: ${error.message}`);
                         document.getElementById('coordinates').textContent = "Unable to fetch coordinates.";
-                        document.getElementById('location').textContent = "";
                     }
                 );
             } else {
                 console.error("Geolocation is not supported by this browser.");
                 document.getElementById('coordinates').textContent = "Geolocation is not supported.";
-                document.getElementById('location').textContent = "";
             }
         };
 
@@ -254,10 +259,11 @@
             tempTextArea.select();
             document.execCommand('copy');
             document.body.removeChild(tempTextArea);
+            alert("Coordinates copied to clipboard!");
         };
     </script>
 </body>
 
 </html>
 
-                        
+                
