@@ -1,143 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Game</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Game</title>
 
-        .container {
-            width: 80%;
-            margin: 0 auto;
-            padding: 20px;
-        }
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
 
-        .question {
-            margin-bottom: 20px;
-        }
+    .container {
+      width: 80%;
+      margin: 0 auto;
+      padding: 20px;
+    }
 
-        #question-text {
-            font-size: 18px;
-            font-weight: bold;
-        }
+    .quiz-container {
+      background-color: #fff;
+      border-radius: 4px;
+      padding: 20px;
+    }
 
-        .options {
-            display: flex;
-            flex-direction: column;
-        }
+    .question-section {
+      margin-bottom: 20px;
+    }
 
-        .option-button {
-            margin-top: 10px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            cursor: pointer;
-        }
+    .question {
+      font-size: 20px;
+      font-weight: bold;
+    }
 
-        .option-button.selected {
-            background-color: #eee;
-        }
+    .options {
+      margin-top: 10px;
+    }
 
-        .option-button.correct {
-            background-color: #a6e4a6;
-        }
+    .option-button {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      cursor: pointer;
+      background-color: transparent;
+      transition: background-color 0.2s ease-in-out;
+      outline: none;
+    }
 
-        .option-button.incorrect {
-            background-color: #f2dede;
-        }
+    .option-button:hover {
+      background-color: #eee;
+    }
 
-        .feedback {
-            margin-bottom: 20px;
-        }
+    .option-button.selected {
+      background-color: #eee;
+    }
 
-        #feedback-text {
-            font-style: italic;
-        }
+    .option-button.correct {
+      background-color: #a6e4a6;
+    }
 
-        .buttons {
-            display: flex;
-            justify-content: space-between;
-        }
+    .option-button.incorrect {
+      background-color: #f2dede;
+    }
 
-        .control-button {
-            padding: 10px;
-            border: 1px solid #ccc;
-            cursor: pointer;
-        }
+    #option-1-text,
+    #option-2-text,
+    #option-3-text,
+    #option-4-text {
+      font-size: 16px;
+    }
 
-        #scoreboard {
-            margin-top: 20px;
-        }
+    .feedback-section {
+      margin-bottom: 20px;
+    }
 
-        #score-text {
-            font-weight: bold;
-        }
-    </style>
+    #feedback-text {
+      font-size: 16px;
+      font-style: italic;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Quiz Game</h1>
-        <div id="quiz">
-            <div class="question">
-                <p id="question-text"></p>
-                <div class="options">
-                    <button id="option-1" class="option-button"></button>
-                    <button id="option-2" class="option-button"></button>
-                    <button id="option-3" class="option-button"></button>
-                    <button id="option-4" class="option-button"></button>
-                </div>
-            </div>
+  <div class="container">
+    <h1>Quiz Game</h1>
 
-            <div class="feedback">
-                <p id="feedback-text"></p>
-            </div>
-
-            <div class="buttons">
-                <button id="previous-button" class="control-button">Previous</button>
-                <button id="submit-button" class="control-button">Submit</button>
-                <button id="next-button" class="control-button">Next</button>
-            </div>
+    <div class="quiz-container">
+      <div class="question-section">
+        <div class="question">
+          <h2 id="question-text"></h2>
         </div>
 
-        <div id="scoreboard">
-            <p>Score: <span id="score-text">0</span></p>
+        <div class="options">
+          <button id="option-1" class="option-button">
+            <span id="option-1-text"></span>
+          </button>
+
+          <button id="option-2" class="option-button">
+            <span id="option-2-text"></span>
+          </button>
+
+          <button id="option-3" class="option-button">
+            <span id="option-3-text"></span>
+          </button>
+
+          <button id="option-4" class="option-button">
+            <span id="option-4-text"></span>
+          </button>
         </div>
+      </div>
+
+      <div class="feedback-section">
+        <p id="feedback-text"></p>
+      </div>
+
+      <div class="controls">
+        <button id="previous-button" class="control-button">
+          <span>Previous</span>
+        </button>
+
+        <button id="submit-button" class="control-button">
+          <span>Submit</span>
+        </button>
+
+        <button id="next-button" class="control-button">
+          <span>Next</span>
+        </button>
+      </div>
     </div>
 
-    <script>
-        const questions = [
-            {
-                question: "What is the capital of France?",
-                options: ["Paris", "London", "Berlin", "Rome"],
-                answer: "Paris"
-            },
-            {
-                question: "What is the largest planet in our solar system?",
-                options: ["Jupiter", "Saturn", "Neptune", "Uranus"],
-                answer: "Jupiter"
-            },
-            // Add more questions here...
-        ];
+    <div class="scoreboard">
+      <p>Score: <span id="score-text">0</span></p>
+    </div>
+  </div>
 
-        let currentQuestion = 0;
-        let score = 0;
-        let selectedOption = null;
-        let feedbackText = "";
-
-        const questionTextElement = document.getElementById("question-text");
-        const optionsElement = document.querySelector(".options");
-        const feedbackElement = document.getElementById("feedback-text");
-        const scoreTextElement = document.getElementById("score-text");
-
-        const previousButton = document.getElementById("previous-button");
-        const submitButton = document.getElementById("submit-button");
-        const nextButton = document.getElementById("next-button");
-
-        previousButton.addEventListener("click", previousQuestion);
-        submitButton.addEventListener("click", checkAnswer);
-        nextButton.
-            
+  <script src="script.js"></script>
+</body>
+</html>
