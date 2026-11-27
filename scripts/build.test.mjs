@@ -90,10 +90,15 @@ test('injectMarker keeps markers and tolerates $ in content', () => {
   assert.throws(() => injectMarker(html, 'NOPE', ''), /NOPE/);
 });
 
-test('sitemap and rss escape special characters', () => {
-  const notes = prepareNotes([{ id: 'n1', title: 'Tom & Jerry', createdAt: '2026-01-02T03:04:05Z', content: 'Hi' }], fakeRender);
+test('sitemap and rss escape special characters and strip XML control chars', () => {
+  const notes = prepareNotes([{
+    id: 'n1', title: 'Tom &\x00\x08 Jerry', createdAt: '2026-01-02T03:04:05Z', content: 'Hi\x1F there',
+  }], fakeRender);
   assert.match(buildSitemap(notes), /<loc>https:\/\/sharathkumargunti\.web\.app\/essays\/tom-and-jerry<\/loc>/);
-  assert.match(buildRss(notes), /<title>Tom &#38; Jerry<\/title>/);
+  const rss = buildRss(notes);
+  assert.match(rss, /<title>Tom &#38; Jerry<\/title>/);
+  assert.match(rss, /<description>Hi there<\/description>/);
+  assert.ok(!/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/.test(rss));
 });
 
 test('purifyHook: external links open in a new tab, images are lazy', () => {
@@ -131,7 +136,7 @@ test('fetchCollection pages through results and explains 403', async () => {
 
 test('build writes pages, indexes and fills the markers; refuses an empty site', async () => {
   const root = await fs.mkdtemp(path.join(os.tmpdir(), 'site-'));
-  await fs.writeFile(path.join(root, 'notes.html'), '<!--SSR:NOTES-->x<!--/SSR:NOTES--><!--SSR:NOTESJSON--><script type="application/json" id="ssr-notes">[]</script><!--/SSR:NOTESJSON-->');
+  await fs.writeFile(path.join(root, 'notes.html'), '<div id="notes-list" aria-busy="true"><!--SSR:NOTES-->x<!--/SSR:NOTES--></div><!--SSR:NOTESJSON--><script type="application/json" id="ssr-notes">[]</script><!--/SSR:NOTESJSON-->');
   await fs.writeFile(path.join(root, 'index.html'), '<!--SSR:LATEST-->x<!--/SSR:LATEST--><!--SSR:HOME--><script type="application/json" id="ssr-home">null</script><!--/SSR:HOME-->');
   const raw = [
     { id: 'n1', title: 'First essay', tags: ['AI'], createdAt: '2026-01-01T00:00:00Z', content: 'One.' },
@@ -146,8 +151,10 @@ test('build writes pages, indexes and fills the markers; refuses an empty site',
   const home = await fs.readFile(path.join(root, 'index.html'), 'utf8');
   assert.match(home, /class="latest-link" href="\/essays\/second"/);
   assert.match(home, /<script type="application\/json" id="ssr-home">\{"builtAt":"[^"]+","ids":\["n2","n1"\]\}<\/script>/);
-  assert.match(await fs.readFile(path.join(root, 'notes.html'), 'utf8'), /id="ssr-notes">\[\{"id":"n2"/);
-  assert.match(await fs.readFile(path.join(root, 'notes.html'), 'utf8'), /class="note-card featured"/);
+  const notesHtml = await fs.readFile(path.join(root, 'notes.html'), 'utf8');
+  assert.match(notesHtml, /id="notes-list" aria-busy="false"/);
+  assert.match(notesHtml, /id="ssr-notes">\[\{"id":"n2"/);
+  assert.match(notesHtml, /class="note-card featured"/);
   await assert.rejects(build({ root, rawNotes: [], render: fakeRender }), /empty site/);
   await fs.rm(root, { recursive: true, force: true });
 });
