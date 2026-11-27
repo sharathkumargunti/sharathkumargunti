@@ -5,7 +5,7 @@ import { SITE } from "/assets/firebase-config.js";
 import { getFirebase } from "/assets/firebase.js";
 import {
   ESSAY_PATH, esc, tagsOf, toIso, bylineDate, readingMinutes, makeExcerpt, roughPlainFromMarkdown, stripHtml,
-  assignSlugs, noteCardMarkup, articleMarkup, addHeadingIds, tocMarkup, purifyHook, relatedNotes,
+  baseSlug, assignSlugs, noteCardMarkup, articleMarkup, addHeadingIds, tocMarkup, purifyHook, relatedNotes,
 } from "/assets/util.js";
 import { enhanceArticle, initArticleUi, syncBookmark } from "/assets/article.js";
 
@@ -114,6 +114,7 @@ function syncFilterPills() {
     activeFilter = "all";
     const all = filterBar.querySelector('.filter-tag[data-filter="all"]');
     if (all) { all.classList.add("active"); all.setAttribute("aria-pressed", "true"); }
+    if (location.search) history.replaceState(null, "", "/notes");
   }
 }
 
@@ -217,12 +218,6 @@ async function fetchNote(id, slug) {
   if (slug) {
     const q = await getDocs(query(collection(db, "notes"), where("slug", "==", slug), limit(1)));
     if (!q.empty) { const d = q.docs[0]; return { id: d.id, ...d.data() }; }
-    // Older essays have no slug field: match the slug derived from the title.
-    const all = await getDocs(query(collection(db, "notes")));
-    const raw = [];
-    all.forEach((d) => raw.push({ id: d.id, ...d.data() }));
-    const map = assignSlugs(raw);
-    return raw.find((n) => map.get(n.id) === slug) || null;
   }
   return null;
 }
@@ -239,6 +234,7 @@ async function renderReader(note) {
   const mins = readingMinutes(stripHtml(clean));
   const tags = tagsOf(note);
   const title = note.title || "Untitled";
+  const slug = note.slug || baseSlug(note);
 
   singleNote.innerHTML = articleMarkup({
     id: note.id, title, tags,
@@ -246,6 +242,8 @@ async function renderReader(note) {
     bodyHtml, tocHtml: tocMarkup(headings),
     related: ssr ? relatedNotes(ssr, { id: note.id, tags }) : [],
   });
+  const canon = document.querySelector('link[rel="canonical"]');
+  if (canon) canon.href = `${SITE.url}${ESSAY_PATH}/${encodeURIComponent(slug)}`;
   document.title = `${title} | Sharath Kumar Gunti`;
   enhanceArticle($("article-body"));
   syncBookmark();
