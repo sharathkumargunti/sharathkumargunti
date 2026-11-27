@@ -45,13 +45,15 @@
     <!-- 1. Theme Script & Core Styles FIRST to prevent any white flash while fonts load -->
     <script>
         (function() {
-            const t = localStorage.getItem('theme');
-            const isDark = t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches);
-            if (isDark) {
-                document.documentElement.classList.add('dark-mode');
-                const meta = document.getElementById('theme-color-meta');
-                if (meta) meta.setAttribute('content', '#121212');
-            }
+            try {
+                const t = localStorage.getItem('theme');
+                const isDark = t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches);
+                if (isDark) {
+                    document.documentElement.classList.add('dark-mode');
+                    const meta = document.getElementById('theme-color-meta');
+                    if (meta) meta.setAttribute('content', '#121212');
+                }
+            } catch (e) {}
         })();
     </script>
     <style>
