@@ -193,6 +193,7 @@ ${note.tags.map((t) => `<meta property="article:tag" content="${esc(t)}">`).join
 <meta name="twitter:title" content="${esc(note.title)}">
 <meta name="twitter:description" content="${esc(desc)}">
 <meta name="twitter:image" content="${esc(image)}">
+<meta name="twitter:image:alt" content="${esc(site.name)}: notes on geopolitics, defense, economics and AI">
 <script type="application/ld+json">${jsonForScript(ld)}</script>
 
 ${THEME_INIT}
@@ -260,24 +261,26 @@ export function buildSitemap(notes, site = SITE) {
     `\n</urlset>\n`;
 }
 
+const xmlEsc = (s) => esc(String(s ?? '').replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, ''));
+
 export function buildRss(notes, site = SITE, now = new Date()) {
   const items = notes.slice(0, 30).map((n) => {
     const link = `${site.url}${ESSAY_PATH}/${n.slug}`;
     return [
       '    <item>',
-      `      <title>${esc(n.title)}</title>`,
+      `      <title>${xmlEsc(n.title)}</title>`,
       `      <link>${esc(link)}</link>`,
       `      <guid isPermaLink="true">${esc(link)}</guid>`,
       n.createdAt ? `      <pubDate>${new Date(n.createdAt).toUTCString()}</pubDate>` : null,
-      `      <description>${esc(n.excerpt)}</description>`,
-      ...n.tags.map((t) => `      <category>${esc(t)}</category>`),
+      `      <description>${xmlEsc(n.excerpt)}</description>`,
+      ...n.tags.map((t) => `      <category>${xmlEsc(t)}</category>`),
       '    </item>',
     ].filter(Boolean).join('\n');
   });
   return `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Notes &amp; Essays | ${esc(site.name)}</title>
+    <title>Notes &amp; Essays | ${xmlEsc(site.name)}</title>
     <link>${esc(site.url)}/notes</link>
     <atom:link href="${esc(site.url)}/rss.xml" rel="self" type="application/rss+xml"/>
     <description>Deep dives into UPSC CSE topics, geopolitics, Indian defense, the economy and AI.</description>
@@ -342,6 +345,7 @@ export async function build({ root = ROOT, rawNotes, render, site = SITE, now = 
   let html = await fs.readFile(notesPage, 'utf8');
   html = injectMarker(html, 'NOTES', summaries
     .map((n, i) => noteCardMarkup(n, { featured: i === 0, delay: 0, animate: false })).join(''));
+  html = html.replace('id="notes-list" aria-busy="true"', 'id="notes-list" aria-busy="false"');
   html = injectMarker(html, 'NOTESJSON', `<script type="application/json" id="ssr-notes">${jsonForScript(summaries)}</script>`);
   await fs.writeFile(notesPage, html);
 
