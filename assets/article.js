@@ -68,7 +68,10 @@ export function enhanceArticle(body) {
     label("far fa-copy", "Copy");
     btn.addEventListener("click", async () => {
       const code = pre.querySelector("code");
-      if (await copyText(code ? code.innerText : pre.innerText)) {
+      const raw = code
+        ? code.innerText
+        : Array.from(pre.childNodes).filter((n) => n !== btn).map((n) => n.textContent).join("");
+      if (await copyText(raw)) {
         label("fas fa-check", "Copied");
         setTimeout(() => label("far fa-copy", "Copy"), 2000);
       } else {
