@@ -11,6 +11,9 @@ on:
   schedule:
     - cron: '17 */6 * * *'
 
+permissions:
+  contents: read
+
 concurrency:
   group: hosting-live
   cancel-in-progress: false
