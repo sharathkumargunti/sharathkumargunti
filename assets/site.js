@@ -53,12 +53,13 @@ export function writeSaved(list) {
 
 /* ---------- lazy script / style loading ---------- */
 const loaded = new Map();
-export function loadScript(src) {
+export function loadScript(src, integrity = "") {
   if (!loaded.has(src)) {
     loaded.set(src, new Promise((resolve, reject) => {
       const s = document.createElement("script");
       s.src = src;
       s.async = true;
+      if (integrity) { s.integrity = integrity; s.crossOrigin = "anonymous"; }
       s.onload = resolve;
       s.onerror = () => { loaded.delete(src); reject(new Error("Could not load " + src)); };
       document.head.appendChild(s);
@@ -66,18 +67,19 @@ export function loadScript(src) {
   }
   return loaded.get(src);
 }
-export function loadStyle(href) {
+export function loadStyle(href, integrity = "") {
   if (document.querySelector(`link[href="${href}"]`)) return;
   const l = document.createElement("link");
   l.rel = "stylesheet";
   l.href = href;
+  if (integrity) { l.integrity = integrity; l.crossOrigin = "anonymous"; }
   document.head.appendChild(l);
 }
 
 /* Pinned third-party libraries (only fetched where needed) */
 export const LIBS = {
   marked: "https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js",
-  purify: "https://cdn.jsdelivr.net/npm/dompurify@3.4.0/dist/purify.min.js",
+  purify: "https://cdn.jsdelivr.net/npm/dompurify@3.5.0/dist/purify.min.js",
   hljs: "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js",
   hljsCss: "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css",
 };
