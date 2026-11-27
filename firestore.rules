@@ -1,0 +1,49 @@
+rules_version = '2';
+
+// Paste this into Firebase console > Firestore Database > Rules, then press Publish.
+// BEFORE publishing, create one document per admin in a collection named "admins"
+// (document ID = that person's Authentication UID; add any field, for example role = "admin").
+// Admin accounts are listed under Firebase console > Authentication > Users.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAdmin() {
+      return request.auth != null
+        && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    // Visitors can send a message, but only a well-formed one. Only admins can read it.
+    function validMessage() {
+      let d = request.resource.data;
+      return d.keys().hasOnly(['name', 'message', 'read', 'timestamp'])
+        && d.keys().hasAll(['name', 'message', 'timestamp'])
+        && d.name is string && d.name.size() > 0 && d.name.size() <= 100
+        && d.message is string && d.message.size() > 0 && d.message.size() <= 2000
+        && (!('read' in d) || d.read == false)
+        && d.timestamp == request.time;
+    }
+
+    // Published essays: anyone can read, only admins can change.
+    match /notes/{noteId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Drafts are private.
+    match /drafts/{draftId} {
+      allow read, write: if isAdmin();
+    }
+
+    match /messages/{messageId} {
+      allow create: if validMessage();
+      allow read, update, delete: if isAdmin();
+    }
+
+    // Lets the admin panel confirm "am I an admin?" for the signed-in user only.
+    match /admins/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow write: if false;
+    }
+  }
+}

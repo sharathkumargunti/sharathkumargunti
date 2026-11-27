@@ -1,0 +1,30 @@
+/* Shared accessibility and motion rules. Linked from every page. */
+
+:root { --focus: #111827; }
+html.dark-mode { --focus: #f9fafb; }
+
+.skip-link {
+  position: absolute; left: 12px; top: -72px; z-index: 10000;
+  background: #111827; color: #fff; padding: 10px 16px; border-radius: 10px;
+  font: 600 0.95rem Inter, system-ui, sans-serif; text-decoration: none;
+  transition: top 0.15s;
+}
+.skip-link:focus { top: 12px; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

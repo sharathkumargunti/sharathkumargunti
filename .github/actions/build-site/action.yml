@@ -1,0 +1,17 @@
+name: Build site
+description: Pre-render the essays from Firestore into static pages (scripts/build.mjs)
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Install build tools
+      shell: bash
+      run: npm install --no-audit --no-fund
+    - name: Check the build code
+      shell: bash
+      run: npm test
+    - name: Build essay pages, sitemap and RSS
+      shell: bash
+      run: node scripts/build.mjs

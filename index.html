@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sharath Kumar Gunti | UPSC Aspirant &amp; Tech Enthusiast</title>
+
+    <!-- SEO Canonical Tag & Meta -->
+    <link rel="canonical" href="https://sharathkumargunti.web.app/">
+    <meta name="theme-color" content="#FCE5CD" id="theme-color-meta">
+    <meta name="description" content="Official website of Sharath Kumar Gunti. Exploring the intersections of Geopolitics, Indian Defense, Economics, and Artificial Intelligence while preparing for the UPSC Civil Services.">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Sharath Kumar Gunti | UPSC Aspirant &amp; Tech Enthusiast">
+    <meta property="og:description" content="Notes on geopolitics, Indian defense, economics and AI, written while preparing for the UPSC Civil Services.">
+    <meta property="og:site_name" content="Sharath Kumar Gunti">
+    <meta property="og:locale" content="en_IN">
+    <meta property="og:image" content="https://sharathkumargunti.web.app/og-default.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Sharath Kumar Gunti: notes on geopolitics, defense, economics and AI">
+    <meta property="og:url" content="https://sharathkumargunti.web.app/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Sharath Kumar Gunti | UPSC Aspirant &amp; Tech Enthusiast">
+    <meta name="twitter:description" content="Notes on geopolitics, Indian defense, economics and AI, written while preparing for the UPSC Civil Services.">
+    <meta name="twitter:image" content="https://sharathkumargunti.web.app/og-default.png">
+    <meta name="twitter:image:alt" content="Sharath Kumar Gunti: notes on geopolitics, defense, economics and AI">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="alternate" type="application/rss+xml" title="Notes &amp; Essays | Sharath Kumar Gunti" href="/rss.xml">
+    <link rel="modulepreload" href="/assets/home.js">
+    <link rel="modulepreload" href="/assets/site.js">
+    <link rel="modulepreload" href="/assets/firebase-config.js">
+    <link rel="modulepreload" href="/assets/firebase.js">
+    <link rel="modulepreload" href="/assets/util.js">
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@graph":[
+      {"@type":"WebSite","@id":"https://sharathkumargunti.web.app/#website","url":"https://sharathkumargunti.web.app/","name":"Sharath Kumar Gunti"},
+      {"@type":"Person","@id":"https://sharathkumargunti.web.app/#person","name":"Sharath Kumar Gunti","url":"https://sharathkumargunti.web.app/","image":"https://sharathkumargunti.web.app/profile_photo.jpg","description":"UPSC aspirant writing about geopolitics, Indian defense, economics and AI.","sameAs":["https://www.instagram.com/sharathkumargunti","https://youtube.com/@rightone01","https://www.snapchat.com/add/sharathkumar.g","https://www.pinterest.com/sharathkumargunti","https://x.com/sharath_gunti","https://www.facebook.com/sharathkumargunti1"]}
+    ]}
+    </script>
+
+    <!-- 1. Theme Script & Core Styles FIRST to prevent any white flash while fonts load -->
+    <script>
+        (function() {
+            const t = localStorage.getItem('theme');
+            const isDark = t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches);
+            if (isDark) {
+                document.documentElement.classList.add('dark-mode');
+                const meta = document.getElementById('theme-color-meta');
+                if (meta) meta.setAttribute('content', '#121212');
+            }
+        })();
+    </script>
+    <style>
+        :root {
+            color-scheme: light;
+            --bg-body: #FCE5CD;
+            --bg-surface: #ffffff;
+            --bg-input: #f9fafb;
+            --text-main: #111827;
+            --text-muted: #6b7280;
+            --accent: #111827;
+            --accent-invert: #ffffff;
+            --border-light: #e5e7eb;
+            --border-hover: #d1d5db;
+            --soft: rgba(17, 24, 39, 0.05);
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.08);
+            --font-ui: 'Inter', system-ui, -apple-system, sans-serif;
+            --font-reading: 'Lora', Georgia, serif;
+            --radius-bento: 24px;
+            --radius-sm: 12px;
+        }
+
+        html.dark-mode {
+            color-scheme: dark;
+            --bg-body: #121212;
+            --bg-surface: #1e1e1e;
+            --bg-input: #2a2a2a;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --accent: #f9fafb;
+            --accent-invert: #111827;
+            --border-light: #374151;
+            --border-hover: #4b5563;
+            --soft: rgba(255, 255, 255, 0.06);
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        [hidden] { display: none !important; }
+        
+        /* Immediate background paint + strict horizontal containment for Instagram WebView */
+        html {
+            background-color: var(--bg-body);
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-body); }
+        ::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+        body { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            min-height: 100dvh;
+            width: 100%;
+            overflow-x: hidden;
+            background-color: var(--bg-body); 
+            color: var(--text-main); 
+            font-family: var(--font-ui);
+            transition: background-color 0.3s, color 0.3s; 
+            padding: 60px 20px; 
+            -webkit-font-smoothing: antialiased;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Bento Grid Container */
+        .bento-container {
+            width: 100%;
+            max-width: 960px;
+            position: relative;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        body.fade-out .bento-container {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        /* The Grid Layout */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+            grid-auto-rows: minmax(180px, auto);
+            width: 100%;
+        }
+
+        /* Base Card Styling - Graceful, unhurried entrance */
+        .bento-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-bento);
+            padding: 35px;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 0;
+            animation: fadeInUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+        }
+        
+        .bento-card:nth-child(1) { animation-delay: 0.08s; }
+        .bento-card:nth-child(2) { animation-delay: 0.16s; }
+        .bento-card:nth-child(3) { animation-delay: 0.24s; }
+        .bento-card:nth-child(4) { animation-delay: 0.32s; }
+        .bento-card:nth-child(5) { animation-delay: 0.40s; }
+
+        .bento-card:hover { 
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg); 
+            border-color: var(--border-hover);
+        }
+
+        /* Card 1: Hero */
+        .card-hero {
+            grid-column: span 2;
+            grid-row: span 2;
+            align-items: flex-start;
+            justify-content: flex-start;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-hero::before {
+            content: ''; position: absolute; inset: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at top left, rgba(17,24,39,0.03) 0%, transparent 70%);
+            z-index: 0; pointer-events: none;
+        }
+        html.dark-mode .card-hero::before { background: radial-gradient(circle at top left, rgba(255,255,255,0.03) 0%, transparent 70%); }
+        
+        /* Integrated Theme Toggle Button */
+        .theme-toggle {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--bg-input);
+            border: 1px solid var(--border-light);
+            color: var(--text-main);
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 10;
+            overflow: hidden;
+        }
+        
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+            border-color: var(--text-muted);
+            background: var(--bg-surface);
+        }
+
+        .theme-toggle:active {
+            transform: translateY(0) scale(0.95);
+        }
+
+        .theme-toggle i {
+            position: absolute;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1.15rem;
+        }
+        
+        .theme-toggle .fa-sun {
+            transform: translateY(0) rotate(0deg) scale(1);
+            opacity: 1;
+            color: #D97706;
+        }
+        
+        .theme-toggle .fa-moon {
+            transform: translateY(30px) rotate(90deg) scale(0.5);
+            opacity: 0;
+            color: var(--text-main);
+        }
+
+        html.dark-mode .theme-toggle .fa-sun {
+            transform: translateY(-30px) rotate(-90deg) scale(0.5);
+            opacity: 0;
+        }
+        
+        html.dark-mode .theme-toggle .fa-moon {
+            transform: translateY(0) rotate(0deg) scale(1);
+            opacity: 1;
+            color: #FFD700;
+        }
+
+        .profile-pic { 
+            width: 110px; height: 110px; 
+            border-radius: 50%; overflow: hidden; 
+            margin-bottom: 25px; 
+            border: 3px solid var(--bg-surface);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+            position: relative; z-index: 1;
+        }
+        .profile-pic img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .profile-pic:hover img { transform: scale(1.08); }
+        
+        .card-hero h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 14px; letter-spacing: -1.2px; line-height: 1.1; position: relative; z-index: 1; }
+        .card-hero .bio { font-family: var(--font-reading); font-size: 1.2rem; line-height: 1.65; color: var(--text-muted); position: relative; z-index: 1; }
+        
+        /* Card 2: Notes & Latest Essay Widget */
+        .card-notes {
+            position: relative;
+            grid-column: span 1;
+            grid-row: span 1;
+            justify-content: space-between;
+            align-items: stretch;
+            text-decoration: none;
+            cursor: pointer;
+            color: var(--text-main);
+            background: linear-gradient(145deg, var(--bg-surface), var(--bg-input));
+        }
+
+        .notes-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .card-notes .icon-wrapper {
+            width: 52px; height: 52px; border-radius: 50%;
+            background-color: var(--bg-surface); border: 1px solid var(--border-light);
+            display: grid; place-items: center;
+            font-size: 1.3rem; color: var(--text-main);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-notes:hover .icon-wrapper { 
+            background-color: var(--text-main); color: var(--bg-surface); 
+            transform: scale(1.1) rotate(10deg); 
+            border-color: var(--text-main);
+        }
+
+        .notes-top .out-icon {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            opacity: 0.5;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-notes:hover .notes-top .out-icon {
+            opacity: 1;
+            color: var(--text-main);
+            transform: translate(4px, -4px);
+        }
+        
+        .notes-bottom h2 { 
+            font-size: 1.5rem; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px;
+        }
+        .notes-bottom h2 a { color: inherit; text-decoration: none; }
+        .notes-bottom h2 a::after { content: ''; position: absolute; inset: 0; z-index: 1; border-radius: var(--radius-bento); }
+
+        /* Latest Essay Widget Sub-card */
+        #latest-note-widget {
+            position: relative;
+            background: var(--bg-surface);
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            transition: border-color 0.3s, transform 0.2s;
+        }
+        html.dark-mode #latest-note-widget {
+            background: rgba(0,0,0,0.2);
+        }
+        .card-notes:hover #latest-note-widget {
+            border-color: var(--border-hover);
+        }
+        #latest-note-widget.clickable:hover {
+            border-color: var(--text-main);
+        }
+
+        .latest-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .latest-label { 
+            font-size: 0.7rem; font-weight: 800; color: #047857; 
+            text-transform: uppercase; letter-spacing: 1px; 
+            display: flex; align-items: center; gap: 6px;
+        }
+        
+        .latest-label::before {
+            content: ''; display: block; width: 6px; height: 6px; 
+            background: #10B981; border-radius: 50%; 
+            box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2); 
+            animation: pulseLive 2s infinite;
+        }
+
+        .latest-meta {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        @keyframes pulseLive { 
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); } 
+            70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); } 
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } 
+        }
+
+        .latest-title { 
+            font-size: 0.95rem; font-weight: 600; color: var(--text-main); 
+            line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; 
+            -webkit-box-orient: vertical; overflow: hidden; 
+        }
+
+        .static-desc { font-family: var(--font-reading); font-size: 0.95rem; color: var(--text-muted); line-height: 1.4; }
+        .latest-link { display: block; color: inherit; text-decoration: none; }
+        .latest-link::after { content: ''; position: absolute; inset: 0; z-index: 2; border-radius: 12px; }
+        #latest-note-widget:focus-within { border-color: var(--text-main); }
+        html.dark-mode .latest-label { color: #34D399; }
+        .latest-header { flex-wrap: wrap; row-gap: 2px; }
+        .latest-label { white-space: nowrap; }
+
+        /* Card 3: Interests */
+        .card-interests { grid-column: span 1; grid-row: span 1; justify-content: flex-start; }
+        .card-interests h3 { font-size: 1.15rem; font-weight: 800; margin-bottom: 18px; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
+        .card-interests h3 i { font-size: 1rem; color: var(--text-muted); }
+        
+        .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag { 
+            background: var(--bg-input); color: var(--text-main); 
+            padding: 8px 14px; border-radius: 8px; 
+            font-size: 0.85rem; font-weight: 600; 
+            border: 1px solid var(--border-light); 
+            text-decoration: none;
+            display: inline-flex; align-items: center; gap: 6px;
+            transition: all 0.2s; 
+        }
+        .tag:hover { border-color: var(--text-main); background: var(--bg-surface); transform: translateY(-1px); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        html.dark-mode .tag:hover { box-shadow: 0 2px 5px rgba(255,255,255,0.05); }
+        .tag.saved-pill { color: #B45309; border-color: rgba(180, 83, 9, 0.35); }
+        html.dark-mode .tag.saved-pill { color: #F59E0B; }
+
+        /* Card 4: Contact */
+        .card-contact { grid-column: span 2; grid-row: span 1; justify-content: flex-start; overflow: hidden; }
+        .contact-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 20px; }
+        .contact-form h2 { font-size: 1.45rem; font-weight: 800; margin: 0; }
+        .char-counter { font-size: 0.78rem; color: var(--text-muted); font-weight: 500; }
+        
+        /* Contained Honeypot - no offscreen overflow */
+        .hp-trap { display: none !important; }
+
+        .contact-form .input-group { display: flex; gap: 15px; margin-bottom: 0px; }
+        .contact-form input:not(.hp-trap), .contact-form textarea { 
+            width: 100%; padding: 14px 16px; 
+            border: 1px solid var(--border-light); border-radius: var(--radius-sm); 
+            font-family: var(--font-ui); font-size: 0.95rem; font-weight: 500;
+            background-color: var(--bg-input); color: var(--text-main); 
+            transition: all 0.3s; margin-bottom: 15px; 
+        }
+        .contact-form textarea { resize: vertical; min-height: 100px; }
+        
+        .contact-form input:focus, .contact-form textarea:focus { 
+            outline: none; border-color: var(--text-main); background-color: var(--bg-surface);
+            box-shadow: 0 0 0 3px var(--soft);
+        }
+        
+        .contact-form button { 
+            width: 100%; padding: 14px; 
+            background-color: var(--accent); color: var(--accent-invert); 
+            border: none; border-radius: var(--radius-sm); cursor: pointer; 
+            font-size: 1rem; font-weight: 800; transition: all 0.2s; 
+            display: flex; justify-content: center; align-items: center; gap: 8px;
+            font-family: var(--font-ui);
+        }
+        .contact-form button:hover:not(:disabled) { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0,0,0,0.1); }
+        .contact-form button:active:not(:disabled) { transform: translateY(0); }
+        .contact-form button:disabled { opacity: 0.6; cursor: not-allowed; }
+        .contact-form input.error, .contact-form textarea.error { border-color: #EF4444 !important; background-color: #fef2f2 !important; }
+        html.dark-mode .contact-form input.error, html.dark-mode .contact-form textarea.error { background-color: rgba(239, 68, 68, 0.1) !important; }
+
+        /* Card 5: Socials */
+        .card-socials { grid-column: span 1; grid-row: span 1; align-items: center; }
+        .social-icons { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-bottom: 24px; }
+        .social-icons a { font-size: 1.6rem; color: var(--text-muted); text-decoration: none; transition: color 0.2s, transform 0.2s; }
+        .social-icons a:hover { color: var(--text-main); transform: translateY(-3px) scale(1.1); }
+        
+        .links-list { width: 100%; display: flex; flex-direction: column; gap: 12px; }
+        .links-list a { 
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 12px; border: 1px solid var(--border-light); color: var(--text-main); 
+            background: var(--bg-input); text-decoration: none; border-radius: var(--radius-sm); 
+            font-weight: 600; font-size: 0.95rem; transition: all 0.2s; 
+        }
+        .links-list a:hover { background-color: var(--bg-surface); border-color: var(--text-muted); transform: translateY(-1px); }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 900px) {
+            body { padding: 40px 20px 40px; }
+            .bento-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .card-hero { grid-column: span 2; }
+            .card-notes { grid-column: span 1; }
+            .card-interests { grid-column: span 1; }
+            .card-contact { grid-column: span 2; }
+            .card-socials { grid-column: span 2; flex-direction: row; justify-content: space-between; }
+            .social-icons { margin-bottom: 0; }
+            .links-list { flex-direction: row; flex-wrap: wrap; width: auto; gap: 10px; }
+            .links-list a { flex: 1; min-width: 180px; margin: 0; }
+        }
+
+        @media (max-width: 650px) {
+            .bento-grid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+            .bento-card { padding: 25px; border-radius: 20px; }
+            .card-hero, .card-notes, .card-interests, .card-socials, .card-contact { grid-column: span 1; grid-row: auto; }
+            .card-hero h1 { font-size: 2.2rem; }
+            .theme-toggle { top: 20px; right: 20px; }
+            .contact-form .input-group { flex-direction: column; gap: 15px; }
+            .card-socials { flex-direction: column; align-items: stretch; gap: 20px; }
+            .links-list { flex-direction: column; width: 100%; }
+        }
+
+        /* Toast Notifications */
+        #toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+        .toast { min-width: 250px; padding: 16px 20px; border-radius: 12px; color: #fff; font-size: 0.95rem; font-weight: 600; box-shadow: 0 10px 25px rgba(0,0,0,0.2); opacity: 0; transform: translateY(20px); animation: slideIn 0.3s forwards, fadeOut 0.3s forwards 2.7s; display: flex; align-items: center; gap: 12px; font-family: var(--font-ui); }
+        .toast.success { background-color: #047857; }
+        .toast.warning { background-color: #B45309; color: #fff; }
+        .toast.error { background-color: #DC2626; }
+        @keyframes slideIn { to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeOut { to { opacity: 0; } }
+        /* ===== Accessibility, touch and motion ===== */
+        :root { --focus: #111827; }
+        html.dark-mode { --focus: #f9fafb; }
+        .skip-link {
+            position: absolute; left: 12px; top: -72px; z-index: 10000;
+            background: #111827; color: #fff; padding: 10px 16px; border-radius: 10px;
+            font: 600 0.95rem Inter, system-ui, sans-serif; text-decoration: none; transition: top 0.15s;
+        }
+        .skip-link:focus { top: 12px; }
+        :focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+        .contact-form input:focus-visible, .contact-form textarea:focus-visible { outline: none; }
+
+        /* Touch screens: no sticky hover lifts */
+        @media (hover: none) {
+            .bento-card:hover { transform: none; box-shadow: var(--shadow-sm); border-color: var(--border-light); }
+            .tag:hover, .links-list a:hover, .social-icons a:hover, .theme-toggle:hover,
+            .contact-form button:hover:not(:disabled) { transform: none; }
+            .profile-pic:hover img { transform: none; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto !important; }
+            .bento-card { animation: none !important; opacity: 1 !important; transform: none !important; }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important; animation-delay: 0s !important;
+                animation-iteration-count: 1 !important; transition-duration: 0.01ms !important;
+            }
+        }
+
+    </style>
+
+    <!-- 2. External Fonts & Icons loaded after core styles so they never cause a white screen -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <main id="main" class="bento-container">
+        <div class="bento-grid">
+            
+            <!-- Card 1: Hero -->
+            <div class="bento-card card-hero">
+                <button type="button" class="theme-toggle" id="dark-mode-toggle" aria-label="Dark mode" aria-pressed="false" title="Toggle theme">
+                    <i aria-hidden="true" class="fas fa-sun"></i>
+                    <i aria-hidden="true" class="fas fa-moon"></i>
+                </button>
+
+                <div class="profile-pic">
+                    <img src="/profile_photo.jpg" alt="Sharath Kumar Gunti" width="400" height="400" fetchpriority="high" decoding="async">
+                </div>
+                <h1>Sharath Kumar Gunti</h1>
+                <p class="bio">UPSC aspirant exploring the intersections of geopolitics, Indian defense, economics, and Artificial Intelligence. I write to make sense of how these fields shape our modern world.</p>
+            </div>
+
+            <!-- Card 2: My Notes & Latest Essay Widget (heading is the card link; the widget links to the latest essay) -->
+            <div class="bento-card card-notes">
+                <div class="notes-top">
+                    <div class="icon-wrapper">
+                        <i aria-hidden="true" class="fas fa-pen-nib"></i>
+                    </div>
+                    <i aria-hidden="true" class="fas fa-arrow-right out-icon"></i>
+                </div>
+                <div class="notes-bottom">
+                    <h2><a href="/notes" id="notes-card-link">My Notes</a></h2>
+                    <!--SSR:LATEST--><div id="latest-note-widget">
+                        <p class="static-desc">Read essays on geopolitics, defense, and economics.</p>
+                    </div><!--/SSR:LATEST-->
+                </div>
+            </div>
+
+            <!-- Card 3: Interests -->
+            <div class="bento-card card-interests">
+                <h3><i aria-hidden="true" class="fas fa-layer-group"></i> Interests</h3>
+                <div class="tags" id="interest-tags">
+                    <a href="/notes?tag=UPSC%20CSE" class="tag">UPSC CSE</a>
+                    <a href="/notes?tag=Geopolitics" class="tag">Geopolitics</a>
+                    <a href="/notes?tag=AI%20%26%20Tech" class="tag">AI &amp; Tech</a>
+                    <a href="/notes?tag=Defense" class="tag">Defense</a>
+                    <a href="/notes?tag=Economy" class="tag">Economy</a>
+                    <a href="/notes?tag=saved" class="tag saved-pill" id="saved-topic-pill" hidden><i aria-hidden="true" class="fas fa-bookmark"></i> <span id="saved-count-text">Saved</span></a>
+                </div>
+            </div>
+
+            <!-- Card 4: Contact Form -->
+            <div class="bento-card card-contact">
+                <form class="contact-form" id="contact-form" novalidate>
+                    <div class="contact-header">
+                        <h2>Drop a Message 💌</h2>
+                        <span class="char-counter" id="char-counter" hidden>0 / 2000</span>
+                    </div>
+                    
+                    <input type="text" id="website-url" class="hp-trap" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+                    <div class="input-group">
+                        <input type="text" id="visitor-name" placeholder="Your Name" aria-label="Your name" maxlength="100" autocomplete="name" required>
+                    </div>
+                    <textarea id="visitor-message" placeholder="Say hi or share your thoughts..." aria-label="Your message" maxlength="2000" rows="3" required></textarea>
+                    <button type="submit" id="submit-btn"><i aria-hidden="true" class="fas fa-paper-plane"></i> Send Message</button>
+                </form>
+            </div>
+
+            <!-- Card 5: Socials -->
+            <div class="bento-card card-socials">
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/sharathkumargunti" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><i aria-hidden="true" class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/@rightone01" target="_blank" rel="noopener noreferrer" aria-label="YouTube" title="YouTube"><i aria-hidden="true" class="fab fa-youtube"></i></a>
+                    <a href="https://www.snapchat.com/add/sharathkumar.g" target="_blank" rel="noopener noreferrer" aria-label="Snapchat" title="Snapchat"><i aria-hidden="true" class="fab fa-snapchat-ghost"></i></a>
+                    <a href="https://www.pinterest.com/sharathkumargunti" target="_blank" rel="noopener noreferrer" aria-label="Pinterest" title="Pinterest"><i aria-hidden="true" class="fab fa-pinterest"></i></a>
+                    <a href="https://x.com/sharath_gunti" target="_blank" rel="noopener noreferrer" aria-label="X" title="X (Twitter)"><i aria-hidden="true" class="fa-brands fa-x-twitter"></i></a>
+                </div>
+                <div class="links-list">
+                    <a href="https://www.facebook.com/sharathkumargunti1" target="_blank" rel="noopener noreferrer"><i aria-hidden="true" class="fab fa-facebook"></i> Facebook Profile</a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <div id="toast-container" role="status" aria-live="polite"></div>
+
+    <!--SSR:HOME--><script type="application/json" id="ssr-home">null</script><!--/SSR:HOME-->
+    <script type="module" src="/assets/home.js"></script>
+</body>
+</html>

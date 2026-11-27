@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Page not found | Sharath Kumar Gunti</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<script>
+// An essay published since the last site build has no static page yet: open it in the live reader instead.
+(function () {
+  var m = location.pathname.match(/^\/essays\/([^\/]+?)\/?$/);
+  if (m) {
+    var slug = m[1];
+    try { slug = decodeURIComponent(slug); } catch (e) {}
+    location.replace('/notes?slug=' + encodeURIComponent(slug));
+  }
+})();
+</script>
+<script>{const t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark-mode')}</script>
+<style>
+:root{--bg:#FCE5CD;--surface:#fff;--text:#111827;--muted:#6b7280;--border:#e5e7eb}
+.dark-mode{--bg:#121212;--surface:#1e1e1e;--text:#f9fafb;--muted:#9ca3af;--border:#374151}
+*{margin:0;padding:0;box-sizing:border-box}
+body{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:20px;background:var(--bg);color:var(--text);font:400 1rem/1.5 Inter,system-ui,sans-serif}
+main{max-width:420px;width:100%;background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:36px;box-shadow:0 10px 30px rgba(0,0,0,.06)}
+h1{font-size:1.8rem;font-weight:800;letter-spacing:-.5px;margin-bottom:8px}
+p{color:var(--muted);margin-bottom:24px}
+a{display:inline-block;padding:12px 20px;margin:0 8px 8px 0;border-radius:12px;background:var(--text);color:var(--surface);font-weight:600;text-decoration:none}
+a+a{background:transparent;color:var(--text);border:1px solid var(--border)}
+</style>
+</head>
+<body>
+<main>
+<h1>This page doesn't exist</h1>
+<p>The link may be broken, or the note may have been removed.</p>
+<a href="/">Go home</a><a href="/notes">Read notes</a>
+</main>
+</body>
+</html>

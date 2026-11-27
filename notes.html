@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes &amp; Essays | Sharath Kumar Gunti</title>
+    <meta name="description" content="Deep dives into UPSC CSE topics, Geopolitics, Indian Defense, the Economy, and AI.">
+
+    <link rel="canonical" href="https://sharathkumargunti.web.app/notes">
+    <meta name="theme-color" content="#FCE5CD" id="theme-color-meta">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="alternate" type="application/rss+xml" title="Notes &amp; Essays | Sharath Kumar Gunti" href="/rss.xml">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Sharath Kumar Gunti">
+    <meta property="og:title" content="Notes &amp; Essays | Sharath Kumar Gunti">
+    <meta property="og:description" content="Deep dives into UPSC CSE topics, Geopolitics, Indian Defense, the Economy, and AI.">
+    <meta property="og:image" content="https://sharathkumargunti.web.app/og-default.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Sharath Kumar Gunti: notes on geopolitics, defense, economics and AI">
+    <meta property="og:url" content="https://sharathkumargunti.web.app/notes">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Notes &amp; Essays | Sharath Kumar Gunti">
+    <meta name="twitter:description" content="Deep dives into UPSC CSE topics, Geopolitics, Indian Defense, the Economy, and AI.">
+    <meta name="twitter:image" content="https://sharathkumargunti.web.app/og-default.png">
+
+    <script>
+        (function() {
+            try {
+                const t = localStorage.getItem('theme');
+                const isDark = t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches);
+                if (isDark) {
+                    document.documentElement.classList.add('dark-mode');
+                    const meta = document.getElementById('theme-color-meta');
+                    if (meta) meta.setAttribute('content', '#121212');
+                }
+            } catch (e) {}
+        })();
+    </script>
+
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="/assets/base.css">
+    <link rel="modulepreload" href="/assets/notes.js">
+    <link rel="modulepreload" href="/assets/site.js">
+    <link rel="modulepreload" href="/assets/firebase-config.js">
+    <link rel="modulepreload" href="/assets/firebase.js">
+    <link rel="modulepreload" href="/assets/util.js">
+    <link rel="modulepreload" href="/assets/article.js">
+    <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div id="progress-container" aria-hidden="true"><div id="progress-bar"></div></div>
+
+    <nav class="top-nav" id="main-nav" aria-label="Site">
+        <a href="/" class="back-link" id="back-link">
+            <i class="fas fa-arrow-left" aria-hidden="true"></i> <span id="back-text">Home</span>
+        </a>
+        <button type="button" class="theme-toggle" id="dark-mode-toggle" aria-label="Dark mode" aria-pressed="false" title="Toggle theme">
+            <i class="fas fa-sun" aria-hidden="true"></i>
+            <i class="fas fa-moon" aria-hidden="true"></i>
+        </button>
+    </nav>
+
+    <div id="lightbox" class="lightbox-overlay" role="dialog" aria-modal="true" aria-label="Image viewer" aria-hidden="true" tabindex="-1">
+        <img id="lightbox-img" class="lightbox-img" alt="">
+    </div>
+
+    <button type="button" id="scroll-top" class="scroll-top-btn" aria-label="Scroll to top"><i class="fas fa-arrow-up" aria-hidden="true"></i></button>
+
+    <main id="main">
+        <!-- ALL NOTES -->
+        <div class="main-wrapper" id="grid-view">
+            <div class="page-header" id="page-header">
+                <h1>Notes &amp; Essays</h1>
+                <p>Making sense of geopolitics, defense, and the modern world.</p>
+            </div>
+
+            <div class="toolbar" id="toolbar" role="search">
+                <div class="search-wrap">
+                    <i class="fas fa-search" aria-hidden="true"></i>
+                    <input type="search" class="note-search" id="note-search" placeholder="Search essays and notes..." aria-label="Search essays" autocomplete="off" enterkeyhint="search">
+                    <span class="search-kbd" aria-hidden="true">/</span>
+                </div>
+                <div class="filter-bar" id="filter-bar" role="group" aria-label="Filter by topic"></div>
+            </div>
+            <p class="results-meta" id="results-meta" role="status" aria-live="polite"></p>
+
+            <!-- The build replaces everything between these markers with the real essay cards. -->
+            <div class="notes-grid" id="notes-list" aria-busy="true"><!--SSR:NOTES--><div class="skeleton-card" style="grid-column: 1 / -1; height: 240px;"></div><div class="skeleton-card"></div><div class="skeleton-card"></div><!--/SSR:NOTES--></div>
+        </div>
+
+        <!-- Fallback reader: only used for essays published since the last build -->
+        <div class="reading-wrapper single-note" id="single-note"></div>
+    </main>
+
+    <div id="toast-container" role="status" aria-live="polite"></div>
+
+    <!--SSR:NOTESJSON--><script type="application/json" id="ssr-notes">[]</script><!--/SSR:NOTESJSON-->
+    <script type="module" src="/assets/notes.js"></script>
+</body>
+</html>

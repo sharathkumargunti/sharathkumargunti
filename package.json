@@ -1,0 +1,18 @@
+{
+  "name": "sharathkumargunti-site",
+  "private": true,
+  "type": "module",
+  "description": "Personal site. The build pre-renders essays from Firestore into static pages.",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "dompurify": "3.4.0",
+    "jsdom": "25.0.1",
+    "marked": "12.0.2"
+  }
+}
