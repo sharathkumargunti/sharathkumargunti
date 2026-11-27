@@ -2,6 +2,12 @@
 
 Personal site: home page, notes list, one page per essay, and an admin panel.
 
+This project is open source under the [MIT License](LICENSE). The **code** is free to reuse.
+The **personal content** is not: my name, photo (`profile_photo.jpg`), social card
+(`og-default.png`), icons, bio text and essays are © Sharath Kumar Gunti and are not licensed for
+reuse. If you copy the site, replace all of them with your own (see
+[Use this as a template](#use-this-as-a-template)).
+
 ## How it fits together
 
 - **Essays, drafts and messages live in Firestore** (`notes`, `drafts`, `messages`). You write in `adminwithpassword.html`.
@@ -46,3 +52,40 @@ Personal site: home page, notes list, one page per essay, and an admin panel.
 - `npm install && npm test` checks the build code. `npm run build` rewrites `index.html` and `notes.html`; run `git checkout index.html notes.html` afterwards if you ran it locally.
 - If the build says **403**: the rules do not allow public reads of `notes`, or the API key's website restriction does not list the site address.
 - `https://sharathkumargunti.web.app` is also written by hand in the `<head>` of `index.html`, `notes.html` and in `robots.txt`. If you ever add a custom domain, change it there and in `assets/firebase-config.js`.
+
+## Use this as a template
+
+You need your own Firebase project and your own GitHub repository. Nothing here connects to mine.
+
+1. **Copy the code.** Fork or clone this repository and push it to your own GitHub account.
+2. **Create a Firebase project.** Enable **Authentication** (Email/Password) and **Firestore Database**.
+   Add your own account under Authentication > Users.
+3. **Point the code at your project.**
+   - `assets/firebase-config.js`: replace `firebaseConfig` with your web app's settings, and set
+     `SITE.url`, `SITE.name` and `SITE.contactEmail`.
+   - `.firebaserc` and `firebase.json` (`hosting.site`): your project ID and hosting site name.
+   - `.github/workflows/*.yml`: your project ID (`projectId`). Running `firebase init hosting:github`
+     in your clone creates the service-account secret for you; make sure the secret name in both
+     workflows matches the one it creates.
+4. **Make it yours.**
+   - Replace `profile_photo.jpg`, `og-default.png`, `icon-192.png`, `icon-512.png`,
+     `apple-touch-icon.png` and `favicon.svg`.
+   - Edit the bio, links and structured data in `index.html` (name, social profiles, URLs).
+   - Change the site address in `index.html`, `notes.html` and `robots.txt`.
+   - Delete `googlefee425d75b6a786f.html`. It verifies my site with Google Search Console and is
+     useless on yours.
+5. **Follow the go-live checklist above** (admin UID in the `admins` collection, publish
+   `firestore.rules`, push to `main`).
+
+Firebase web keys are not secrets, but restrict yours by HTTP referrer as described in the checklist.
+Never commit service-account JSON files, GitHub tokens or `.env` files.
+
+## Contributing
+
+Bug reports and pull requests are welcome. Run `npm install && npm test` before opening a pull
+request. Pull requests from forks do not get deploy previews, because they cannot read this
+repository's secrets.
+
+## License
+
+Code: [MIT](LICENSE). Personal content (name, photo, images, bio, essays): all rights reserved.
