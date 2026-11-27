@@ -1,5 +1,6 @@
 // Entry point for the home page.
 import { initTheme, showToast, startAnalytics, readSaved } from "/assets/site.js";
+import { SITE } from "/assets/firebase-config.js";
 import { getFirebase } from "/assets/firebase.js";
 import { latestWidgetMarkup } from "/assets/util.js";
 
@@ -17,17 +18,30 @@ function navigateWithFade(url) {
   setTimeout(() => { window.location.href = url; }, 180);
 }
 
-// Smooth fade for internal links (same page anchors and new tabs are left alone)
-document.querySelectorAll("a").forEach((a) => {
-  a.addEventListener("click", (e) => {
-    if (a.target === "_blank" || a.hasAttribute("download") || e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;
-    if (!a.href || a.protocol === "mailto:" || a.hostname !== location.hostname) return;
-    const u = new URL(a.href);
-    if (u.pathname === location.pathname && u.search === location.search && u.hash) return;
-    e.preventDefault();
-    navigateWithFade(a.href);
-  });
+// Smooth fade for internal links (delegated so dynamically injected links work too)
+document.addEventListener("click", (e) => {
+  const a = e.target.closest("a");
+  if (!a) return;
+  if (a.target === "_blank" || a.hasAttribute("download") || e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;
+  if (!a.href || a.protocol === "mailto:" || a.hostname !== location.hostname) return;
+  const u = new URL(a.href);
+  if (u.pathname === location.pathname && u.search === location.search && u.hash) return;
+  e.preventDefault();
+  navigateWithFade(a.href);
 });
+
+// Optional contact email icon driven by SITE.contactEmail
+if (SITE.contactEmail && SITE.contactEmail.trim()) {
+  const icons = document.querySelector(".social-icons");
+  if (icons) {
+    const a = document.createElement("a");
+    a.href = `mailto:${SITE.contactEmail.trim()}`;
+    a.setAttribute("aria-label", "Email");
+    a.title = "Email";
+    a.innerHTML = '<i aria-hidden="true" class="fas fa-envelope"></i>';
+    icons.appendChild(a);
+  }
+}
 
 /* ---------- build-time data (essay ids, latest essay) ---------- */
 let ssrHome = null;
