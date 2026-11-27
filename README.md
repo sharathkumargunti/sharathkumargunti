@@ -1,91 +1,184 @@
-# sharathkumargunti.web.app
+# Sharath Kumar Gunti: personal site
 
-Personal site: home page, notes list, one page per essay, and an admin panel.
+[![Deploy](https://github.com/sharathkumargunti/sharathkumargunti/actions/workflows/firebase-hosting-merge.yml/badge.svg)](https://github.com/sharathkumargunti/sharathkumargunti/actions/workflows/firebase-hosting-merge.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+![Node](https://img.shields.io/badge/node-%E2%89%A520-339933)
 
-This project is open source under the [MIT License](LICENSE). The **code** is free to reuse.
-The **personal content** is not: my name, photo (`profile_photo.jpg`), social card
-(`og-default.png`), icons, bio text and essays are © Sharath Kumar Gunti and are not licensed for
-reuse. If you copy the site, replace all of them with your own (see
-[Use this as a template](#use-this-as-a-template)).
+A fast, no-framework personal website with a home page, a notes and essays section, and a private admin panel for writing. Live at **[sharathkumargunti.web.app](https://sharathkumargunti.web.app)**.
 
-## How it fits together
+Essays are written in the browser, stored in Firestore, and turned into real static pages on every deploy, so each essay has its own address, title, summary and link preview.
 
-- **Essays, drafts and messages live in Firestore** (`notes`, `drafts`, `messages`). You write in `adminwithpassword.html`.
-- **Every deploy first runs `scripts/build.mjs`.** It reads the published essays and writes real pages into `essays/<slug>.html`, plus `notes-index.json`, `search-index.json`, `sitemap.xml` and `rss.xml`, and fills in the essay list on `notes.html` and the latest essay on `index.html`. This is what makes WhatsApp, X, Telegram and Google see each essay's own title, summary and link.
-- **A deploy starts when** you push to `main`, every 6 hours, you press **Deploy site** in the admin panel, or you press *Run workflow* on the GitHub Actions tab.
-- If the build fails, the workflow turns red and **the live site keeps its previous version**.
-- Settings that used to be copied into three files now live in one: `assets/firebase-config.js`.
+> **Code is MIT. Personal content is not.** The code is free to reuse. My name, photo, images, bio and essays are © Sharath Kumar Gunti and are not licensed for reuse. See [License](#license).
 
-## Go-live checklist (do these in order)
+## Contents
 
-1. **Delete two old files** from the repository: `firebase-config.js` (the one in the root; it was not used by any page) and `sitemap.xml` (it is generated now).
-2. **Firestore rules.**
-   1. Firebase console > Authentication > Users: copy the *User UID* of every admin account.
-   2. Firestore Database > Start collection `admins`; add one document per admin. The document ID is the UID; give it any field, for example `role` = `admin`.
-   3. Rules tab: paste the contents of `firestore.rules` and press Publish. (Do step 2 first, or you lock yourself out of publishing.)
-3. **Push to `main`** and open the Actions tab. The first run installs the build tools and takes about a minute. Open `/notes`, then one essay under `/essays/...`.
-4. **Recommended:** Google Cloud console > APIs & Services > Credentials > the browser key > *Websites* restriction. Allow `https://sharathkumargunti.web.app/*`, `https://sharathkumargunti.firebaseapp.com/*` and `http://localhost:*`. The build sends your site address as its referrer, so it is not blocked.
-5. **Optional, for the Deploy button:** GitHub > Settings > Developer settings > Fine-grained tokens. Repository access: only this repo. Permission: *Actions: Read and write*. Then in the admin panel, Notes tab, press the gear next to **Deploy site** and enter `owner/repo` and the token. They are stored in that browser only. After that, publishing, updating, unpublishing and deleting start a deploy by themselves.
+- [Features](#features)
+- [How it works](#how-it-works)
+- [Tech stack](#tech-stack)
+- [Project structure](#project-structure)
+- [Run it locally](#run-it-locally)
+- [Set up your own copy](#set-up-your-own-copy)
+- [Make it yours](#make-it-yours)
+- [Writing and publishing](#writing-and-publishing)
+- [Security](#security)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Day to day
+## Features
 
-- Publish in the admin panel. Wait about 2 minutes for the deploy, then share the link (`Copy Link` in the essay menu). Before the deploy finishes the link still opens the essay, but link previews are generic until the page is built, and WhatsApp remembers what it saw first.
-- Unpublishing or deleting an essay takes effect at the next deploy.
-- Each essay has a **Link** and a **Summary** field in the editor. Changing the link of a published essay keeps the old address working.
-- Unpublishing and publishing again keeps the same address and original date.
-- Visitors who send Do Not Track or Global Privacy Control are not counted by analytics. To switch analytics off completely, set `analytics: false` in `assets/firebase-config.js`.
+- **Notes and essays.** One real HTML page per essay, with its own title, description and social card. Links look right on WhatsApp, X, Telegram and Google.
+- **Search.** A search box on the notes page. The search index is loaded only when it is used.
+- **RSS and sitemap.** `rss.xml` and `sitemap.xml` are generated on every deploy.
+- **Admin panel.** Write in Markdown, preview, autosave drafts, edit slug and summary, publish, unpublish, and read messages from visitors.
+- **Contact messages.** Visitors can leave a message. Only admins can read it.
+- **Light and dark themes**, a web app manifest and icons for home-screen install.
+- **Privacy-friendly analytics.** Firebase Analytics on public pages only, skipped for visitors who send Do Not Track or Global Privacy Control, and easy to switch off.
+- **Safe deploys.** If the build fails, the workflow turns red and the live site keeps its previous version.
 
-## Files
+## How it works
+
+```mermaid
+flowchart LR
+  A["Admin panel<br/>adminwithpassword.html"] -->|write and publish| B[("Firestore<br/>notes, drafts, messages")]
+  B -->|read published essays| C["GitHub Actions<br/>scripts/build.mjs"]
+  C -->|static pages, sitemap, RSS| D["Firebase Hosting"]
+  D --> E["Visitors"]
+  E -->|contact form| B
+```
+
+1. You write and publish in the admin panel. Everything is saved in Firestore (`notes`, `drafts`, `messages`).
+2. A deploy runs `scripts/build.mjs`. It reads the published essays and writes `essays/<slug>.html`, `notes-index.json`, `search-index.json`, `sitemap.xml` and `rss.xml`. It also fills the essay list into `notes.html` and the latest essay into `index.html`.
+3. The result is uploaded to Firebase Hosting.
+
+A deploy starts when you:
+
+- push to `main`,
+- wait for the schedule (every 6 hours),
+- press **Deploy site** in the admin panel (needs the optional token, see [setup](#set-up-your-own-copy)), or
+- press **Run workflow** on the GitHub Actions tab.
+
+The generated files are listed in `.gitignore` and are never committed.
+
+## Tech stack
+
+| Part | Choice |
+| --- | --- |
+| Front end | Plain HTML, CSS and JavaScript (ES modules). No framework, no bundler |
+| Data and auth | Firebase Authentication (email and password) and Firestore |
+| Hosting | Firebase Hosting |
+| Build | Node 20 or newer (CI uses 22) with `marked`, `DOMPurify` and `jsdom` |
+| CI/CD | GitHub Actions |
+
+## Project structure
 
 | Path | What it is |
 | --- | --- |
-| `assets/firebase-config.js` | Firebase settings and site-wide switches (single source of truth) |
-| `assets/util.js` | Slugs, excerpts and page markup shared by the browser, admin and build |
-| `assets/site.css`, `assets/base.css` | Styles for notes pages and shared accessibility rules |
-| `assets/notes.js`, `home.js`, `essay.js`, `article.js`, `site.js`, `firebase.js` | Page scripts. Firebase loads only when needed |
-| `scripts/build.mjs`, `scripts/build.test.mjs` | The pre-render build and its tests (`npm test`) |
-| `firestore.rules` | Rules to paste into the Firebase console (not deployed automatically) |
-| `.github/` | Deploy workflows and the build step |
+| `index.html`, `notes.html`, `404.html` | The public pages |
+| `adminwithpassword.html` | Admin panel. Protected by Firebase sign-in and `firestore.rules`, not by being hidden |
+| `assets/firebase-config.js` | **The one place for Firebase settings and site-wide switches** |
+| `assets/util.js` | Slugs, excerpts and page markup shared by the browser, the admin panel and the build |
+| `assets/site.css`, `assets/base.css` | Styles, including shared accessibility rules |
+| `assets/home.js`, `notes.js`, `essay.js`, `article.js`, `site.js`, `firebase.js` | Page scripts. Firebase is loaded only when needed |
+| `scripts/build.mjs`, `scripts/build.test.mjs` | The pre-render build and its tests |
+| `firestore.rules` | Security rules. Paste them into the Firebase console (not deployed automatically) |
+| `firebase.json`, `.firebaserc` | Hosting settings, security headers, clean URLs and cache rules |
+| `.github/workflows/`, `.github/actions/build-site/` | Deploy on merge, preview on pull request, and the shared build step |
+| `profile_photo.jpg`, `og-default.png`, icons, `favicon.svg`, `site.webmanifest` | Images and app metadata |
 
-## Notes
+## Run it locally
 
-- `npm install && npm test` checks the build code. `npm run build` rewrites `index.html` and `notes.html`; run `git checkout index.html notes.html` afterwards if you ran it locally.
-- If the build says **403**: the rules do not allow public reads of `notes`, or the API key's website restriction does not list the site address.
-- `https://sharathkumargunti.web.app` is also written by hand in the `<head>` of `index.html`, `notes.html` and in `robots.txt`. If you ever add a custom domain, change it there and in `assets/firebase-config.js`.
+You need Node 20 or newer.
 
-## Use this as a template
+```bash
+git clone https://github.com/sharathkumargunti/sharathkumargunti.git
+cd sharathkumargunti
+npm install
+npm test            # checks the build code
+npm run build       # optional: pre-renders essays (reads published notes from Firestore)
+python3 -m http.server 8000
+```
+
+Open `http://localhost:8000/index.html` and `/notes.html`. Clean URLs such as `/notes` only work on Firebase Hosting.
+
+`npm run build` rewrites `index.html` and `notes.html`. Run `git checkout index.html notes.html` afterwards if you do not want to keep those changes.
+
+## Set up your own copy
 
 You need your own Firebase project and your own GitHub repository. Nothing here connects to mine.
 
-1. **Copy the code.** Fork or clone this repository and push it to your own GitHub account.
-2. **Create a Firebase project.** Enable **Authentication** (Email/Password) and **Firestore Database**.
-   Add your own account under Authentication > Users.
-3. **Point the code at your project.**
-   - `assets/firebase-config.js`: replace `firebaseConfig` with your web app's settings, and set
-     `SITE.url`, `SITE.name` and `SITE.contactEmail`.
-   - `.firebaserc` and `firebase.json` (`hosting.site`): your project ID and hosting site name.
-   - `.github/workflows/*.yml`: your project ID (`projectId`). Running `firebase init hosting:github`
-     in your clone creates the service-account secret for you; make sure the secret name in both
-     workflows matches the one it creates.
-4. **Make it yours.**
-   - Replace `profile_photo.jpg`, `og-default.png`, `icon-192.png`, `icon-512.png`,
-     `apple-touch-icon.png` and `favicon.svg`.
-   - Edit the bio, links and structured data in `index.html` (name, social profiles, URLs).
-   - Change the site address in `index.html`, `notes.html` and `robots.txt`.
-   - Delete `googlefee425d75b6a786f.html`. It verifies my site with Google Search Console and is
-     useless on yours.
-5. **Follow the go-live checklist above** (admin UID in the `admins` collection, publish
-   `firestore.rules`, push to `main`).
+**1. Copy the code.** Fork or clone this repository and push it to your own GitHub account.
 
-Firebase web keys are not secrets, but restrict yours by HTTP referrer as described in the checklist.
-Never commit service-account JSON files, GitHub tokens or `.env` files.
+**2. Create a Firebase project.** In the Firebase console:
+
+- Add a **web app** and copy its settings.
+- Enable **Authentication** with the Email/Password provider, and add your own account under Users.
+- Create a **Firestore Database**.
+- Set up **Hosting** and note your site name.
+
+**3. Point the code at your project.**
+
+- `assets/firebase-config.js`: replace `firebaseConfig`, and set `SITE.url`, `SITE.name` and, if you want a mail icon on the home page, `SITE.contactEmail`.
+- `.firebaserc`: your project ID.
+- `firebase.json`: set `hosting.site` to your Hosting site name.
+- `.github/workflows/*.yml`: set `projectId`, and change the secret name to match yours (next step). Do this in both workflow files.
+
+**4. Create the deploy secret.** Run `firebase init hosting:github` in your clone and let it create the service-account secret in your GitHub repository. Keep the workflow files from this repo. Only the secret matters. Never commit a service-account JSON file.
+
+**5. Make yourself an admin.** The admin panel only works for accounts listed in Firestore.
+
+1. Firebase console > Authentication > Users: copy your **User UID**.
+2. Firestore Database > start a collection named `admins` and add one document. The document ID is the UID. Give it any field, for example `role` = `admin`.
+
+**6. Publish the security rules.** Firebase console > Firestore Database > Rules: paste the contents of `firestore.rules` and press **Publish**. Do step 5 first, or you will lock yourself out of publishing.
+
+**7. Push to `main`.** Open the Actions tab. The first run installs the build tools and takes about a minute. Then open `/notes` and one essay under `/essays/`.
+
+**8. Restrict the API key (recommended).** Google Cloud console > APIs & Services > Credentials > the browser key > Websites restriction. Allow your Hosting addresses (`https://YOUR-SITE.web.app/*` and `https://YOUR-SITE.firebaseapp.com/*`) and `http://localhost:*`. The build sends your site address as its referrer, so it is not blocked.
+
+**9. Optional: enable the Deploy button.** GitHub > Settings > Developer settings > Fine-grained tokens. Repository access: only your repo. Permission: **Actions: Read and write**. Then open the admin panel, go to the Notes tab, press the gear next to **Deploy site**, and enter `owner/repo` and the token. They are stored in that browser only. After that, publishing, updating, unpublishing and deleting start a deploy by themselves.
+
+## Make it yours
+
+Replace everything that is personal to me:
+
+- Images: `profile_photo.jpg`, `og-default.png`, `icon-192.png`, `icon-512.png`, `apple-touch-icon.png`, `favicon.svg`.
+- Text and links: the bio, social profiles and structured data in `index.html`, and the names in `site.webmanifest`.
+- Site address: `https://sharathkumargunti.web.app` is also written by hand in the `<head>` of `index.html` and `notes.html`, and in `robots.txt`. Change it there and in `assets/firebase-config.js`. Do the same if you add a custom domain.
+- Delete `googlefee425d75b6a786f.html`. It verifies my site with Google Search Console and does nothing for yours.
+- Analytics: set `analytics: false` in `assets/firebase-config.js` to switch it off completely.
+
+## Writing and publishing
+
+- Write in the admin panel. Drafts autosave and stay private.
+- Each essay has a **Link** (slug) and a **Summary** field. Changing the link of a published essay keeps the old address working.
+- Unpublishing and publishing again keeps the same address and original date.
+- After publishing, wait about 2 minutes for the deploy, then share the link (`Copy Link` in the essay menu). Before the deploy finishes, the link opens the essay but link previews are generic, and WhatsApp remembers what it saw first.
+- Unpublishing or deleting an essay takes effect at the next deploy.
+
+## Security
+
+- **Firebase web keys are not secrets.** They only identify the project. Your data is protected by `firestore.rules`, and by restricting the key to your domains.
+- **What the rules allow.** Anyone can read published essays. Only admins can create, edit or delete essays and read drafts. Visitors can create a well-formed message (name up to 100 characters, text up to 2,000) but cannot read any. Admin accounts are listed in the `admins` collection and cannot be edited from the client.
+- **No secrets in this repository.** The deploy credential is a GitHub Actions secret. The optional Deploy-button token is stored only in your browser. Never commit service-account files, tokens or `.env` files.
+- **Fork pull requests** do not get preview deploys, because they cannot read repository secrets.
+- **Found a vulnerability?** Please use this repository's **Security** tab > **Report a vulnerability** so it stays private until fixed.
+
+## Troubleshooting
+
+| Problem | What to check |
+| --- | --- |
+| Build fails with **403** | The rules do not allow public reads of `notes`, or the API key's website restriction does not include your site address |
+| Admin panel says you cannot publish | Your UID is not in the `admins` collection, or the rules are not published |
+| Scheduled deploys stopped | On public repositories GitHub disables scheduled workflows after 60 days without repository activity. Re-enable it on the Actions tab, or push any commit |
+| A new essay is missing | Wait for the deploy to finish. A failed build keeps the previous version live, so check the Actions tab |
+| Link preview looks generic | The deploy has not finished yet. WhatsApp caches what it saw first, so wait and share a new link |
 
 ## Contributing
 
-Bug reports and pull requests are welcome. Run `npm install && npm test` before opening a pull
-request. Pull requests from forks do not get deploy previews, because they cannot read this
-repository's secrets.
+Bug reports and pull requests are welcome. Please open an issue first for larger changes. Run `npm install && npm test` before opening a pull request.
 
 ## License
 
-Code: [MIT](LICENSE). Personal content (name, photo, images, bio, essays): all rights reserved.
+- **Code:** [MIT](LICENSE).
+- **Personal content** (name, photo, images, icons, bio text and essays): all rights reserved. Please do not reuse it.
