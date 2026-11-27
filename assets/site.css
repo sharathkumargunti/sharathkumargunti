@@ -325,7 +325,12 @@ html.dark-mode .filter-tag.active[data-filter="saved"] { background: #F59E0B; co
 .note-body th { background: var(--soft); font-weight: 600; color: var(--text-main); }
 
 /* Code Blocks & Copy Button */
-.note-body pre { position: relative; padding: 0; margin-bottom: 2.25rem; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); }
+.note-body pre {
+    position: relative; padding: 0; margin-bottom: 2.25rem;
+    border-radius: 12px; overflow: hidden;
+    border: 1px solid var(--border-light); box-shadow: var(--shadow-sm);
+    background: #1a1b26; color: #c0caf5;
+}
 .note-body pre code { padding: 1.4rem !important; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.92rem; line-height: 1.55; display: block; overflow-x: auto; }
 .note-body code:not(pre code) { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.85em; background: var(--soft); padding: 3px 6px; border-radius: 6px; color: var(--text-main); }
 .copy-code-btn {
