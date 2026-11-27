@@ -19,7 +19,7 @@
   }
 })();
 </script>
-<script>{const t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark-mode')}</script>
+<script>try{const t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark-mode')}catch(e){}</script>
 <style>
 :root{--bg:#FCE5CD;--surface:#fff;--text:#111827;--muted:#6b7280;--border:#e5e7eb}
 .dark-mode{--bg:#121212;--surface:#1e1e1e;--text:#f9fafb;--muted:#9ca3af;--border:#374151}
