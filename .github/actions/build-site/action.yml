@@ -6,7 +6,6 @@ runs:
     - uses: actions/setup-node@v4
       with:
         node-version: 22
-        cache: npm
     - name: Install build tools
       shell: bash
       run: npm ci --no-audit --no-fund
